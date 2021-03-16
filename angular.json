@@ -120,5 +120,8 @@
       }
     }
   },
-  "defaultProject": "project"
+  "defaultProject": "project",
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  }
 }
