@@ -41,6 +41,7 @@ interface Fields {
   description: string,
   tags: string,
   cover_url: string,
+  cover_alt: string,
   address_city: string,
   price_type: string
 }

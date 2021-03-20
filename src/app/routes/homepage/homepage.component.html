@@ -1,13 +1,17 @@
-<p>homepage works!?</p>
-<button (click)="getArticle()">click</button>
-
-<div class="articles-container">
-  <div class="article-main" *ngIf="articles">
+<div class="articles-container" *ngIf="articles">
+  <div class="article-main">
     <mat-card>
-      yop
+      <h1>{{articles[0].fields.title}}</h1>
+      <img src="{{articles[0].fields.cover_url}}" alt="{{articles[0].fields.cover_alt}}"/>
+      <p>{{articles[0].fields.category}}</p>
+<!--      TODO: Ideally, we should put the date, or from date to date
+also add other stuff, like price, etc.
+-->
     </mat-card>
   </div>
-  <div class="articles-smaller">
-<!--  maaaaaany smaller container for articles -->
+  <div class="articles-smaller" *ngFor="let article of articles!.slice(1)">
+    <h1>{{article.fields.title}}</h1>
+    <img src="{{article.fields.cover_url}}" alt="{{article.fields.cover_alt}}"/>
+    <p>{{article.fields.category}}</p>
   </div>
 </div>
