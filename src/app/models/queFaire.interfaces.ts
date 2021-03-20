@@ -15,7 +15,7 @@ export interface QueFaire$Response {
 /**
  * Record corresponds to one and every event
  */
-interface Record {
+export interface Record {
   recordId: string,
   fields: Fields,
   geometry: {
