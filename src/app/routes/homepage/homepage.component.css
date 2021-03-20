@@ -1,0 +1,32 @@
+.articles-container {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2));
+  background-repeat: no-repeat;
+  padding: 3em 2em 2em 2em;
+}
+
+.articles-smaller {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: stretch;
+}
+
+.article {
+  margin: 1em;
+}
+
+.articles-smaller>.article {
+  width: 35%;
+  flex-grow: 1;
+}
+
+
+img{
+  width:100%;
+  max-width:300px;
+}
+
+.button-container {
+  text-align: center;
+  margin-top: 1em;
+}
