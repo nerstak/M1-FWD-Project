@@ -33,8 +33,9 @@ interface Fields {
   pmr: boolean,
   deaf: boolean,
   date_end: Date,
+  date_start: Date,
   access_type: string,
-  occurrences: Date,
+  occurrences: string,
   address_street: string,
   category: string,
   title: string,
@@ -56,5 +57,6 @@ export interface QueFaire$Request {
   price_type?: string,
   access_type?: string,
   address_city?: string,
-  address_zipcode?: string
+  address_zipcode?: string,
+  date?: Date
 }
