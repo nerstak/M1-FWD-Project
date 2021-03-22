@@ -43,5 +43,18 @@ interface Fields {
   cover_url: string,
   cover_alt: string,
   address_city: string,
+  address_zipcode: string,
   price_type: string
+}
+
+export interface QueFaire$Request {
+  deaf?: boolean,
+  blind?: boolean,
+  pmr?: boolean,
+  q?: string,
+  category?: string,
+  price_type?: string,
+  access_type?: string,
+  address_city?: string,
+  address_zipcode?: string
 }

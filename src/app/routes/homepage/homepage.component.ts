@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {QueFaireService} from "../../services/que-faire.service";
-import {Record} from "../../models/queFaire.interfaces";
+import {QueFaire$Request, QueFaire$Response, Record} from "../../models/queFaire.interfaces";
 import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
@@ -14,6 +14,9 @@ export class HomepageComponent {
   constructor(private queFaireService: QueFaireService) {
     // We don't need to deal with the promise return, so we make the warning disappear 😈
     this.loadArticles().then();
+
+    let p = {q: "bonnes pratiques", deaf: false};
+    console.log(queFaireService.getSearchArticles(p))
   }
 
   /**

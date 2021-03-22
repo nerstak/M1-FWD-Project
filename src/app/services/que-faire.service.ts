@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {QueFaire$Response} from "../models/queFaire.interfaces";
+import {QueFaire$Request, QueFaire$Response} from "../models/queFaire.interfaces";
 
 @Injectable({
   providedIn: 'root'
@@ -29,5 +29,23 @@ export class QueFaireService {
   getRecentArticles(n: number) {
     return this.httpClient.get(`${this.url}&q=&rows=${n}&sort=updated_at`)
       .toPromise() as any as QueFaire$Response;
+  }
+
+  getSearchArticles(p: QueFaire$Request) {
+    const searchURL = this.buildSearchURL(p);
+    return this.httpClient.get(searchURL)
+      .toPromise() as any as QueFaire$Response;
+  }
+
+  private buildSearchURL(p: QueFaire$Request): string {
+    let searchURL = this.url;
+
+    if(p.q && p.q.length > 0) searchURL += `&q=${p.q}`
+    if(p.blind) searchURL += '&refine.blind=1'
+    if(p.deaf) searchURL += '&refine.deaf=1'
+    if(p.pmr) searchURL += '&refine.pmr=1'
+    if(p.category && p.category.length > 0) searchURL += `&refine.category=${p.category}`
+
+    return searchURL;
   }
 }
