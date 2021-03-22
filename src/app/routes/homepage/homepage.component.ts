@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {QueFaireService} from "../../services/que-faire.service";
-import {QueFaire$Request, QueFaire$Response, Record} from "../../models/queFaire.interfaces";
+import {Record} from "../../models/queFaire.interfaces";
 import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
@@ -15,8 +15,7 @@ export class HomepageComponent {
     // We don't need to deal with the promise return, so we make the warning disappear 😈
     this.loadArticles().then();
 
-    let p = {q: "bonnes pratiques", deaf: false};
-    console.log(queFaireService.getSearchArticles(p))
+    this.perf_testing().then();
   }
 
   /**
@@ -46,6 +45,24 @@ export class HomepageComponent {
       } else {
         throw err;
       }
+    }
+  }
+
+  /**
+   * Testing performances for parsing dates for at most 1200 elements
+   */
+  async perf_testing() {
+    let p = {q: ""};
+    let res = await this.queFaireService.getSearchArticles(p);
+    let records = res.records;
+    for(let r of records) {
+      // Parsing of start - end
+      console.log(r.fields.date_start);
+      console.log(r.fields.date_end);
+
+      // Parsing literally every period
+      // let o = r.fields.occurrences.split(';');
+      // for(let i of o) console.log(i);
     }
   }
 }

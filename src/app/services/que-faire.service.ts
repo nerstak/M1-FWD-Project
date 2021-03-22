@@ -14,6 +14,16 @@ export class QueFaireService {
   constructor(private httpClient: HttpClient) { }
 
   /**
+   * Build inline parameter for refine ones
+   * @param name Name of parameter
+   * @param s Parameter variable
+   */
+  private static buildParamRefine(name: string, s: string | undefined) {
+    if(s && s.length > 0) return `&refine.${name}=${s}`
+    return "";
+  }
+
+  /**
    * Get attributes of an article
    * @param idArticle recordId of article
    */
@@ -31,21 +41,41 @@ export class QueFaireService {
       .toPromise() as any as QueFaire$Response;
   }
 
+  /**
+   * Get articles using search parameters
+   * @param p Parameters
+   */
   getSearchArticles(p: QueFaire$Request) {
     const searchURL = this.buildSearchURL(p);
     return this.httpClient.get(searchURL)
       .toPromise() as any as QueFaire$Response;
   }
 
+  /**
+   * Build the url to query from parameters
+   * @param p Parameters
+   */
   private buildSearchURL(p: QueFaire$Request): string {
     let searchURL = this.url;
 
+    // Building non conventional parameters (no simple method for all)
     if(p.q && p.q.length > 0) searchURL += `&q=${p.q}`
     if(p.blind) searchURL += '&refine.blind=1'
     if(p.deaf) searchURL += '&refine.deaf=1'
     if(p.pmr) searchURL += '&refine.pmr=1'
-    if(p.category && p.category.length > 0) searchURL += `&refine.category=${p.category}`
 
+    // Building other parameters
+    searchURL += QueFaireService.buildParamRefine('category', p.category);
+    searchURL += QueFaireService.buildParamRefine('access_type', p.access_type);
+    searchURL += QueFaireService.buildParamRefine('price_type', p.price_type);
+    searchURL += QueFaireService.buildParamRefine('address_city', p.address_city);
+    searchURL += QueFaireService.buildParamRefine('address_zipcode', p.address_zipcode);
+
+    searchURL += '&rows=1200';
+
+    console.log(searchURL);
     return searchURL;
   }
+
+
 }
