@@ -6,7 +6,7 @@
 /*Container top*/
 .c-article-details__wrapper{
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   margin-bottom: 16px;
 }
 
@@ -26,9 +26,22 @@
 }
 
 .article-details__event img{
-    max-width: 15vw;
+    max-width: 200px;
+    height: 200px;
 }
 
 .article-details__event-description{
   margin-left: 8px;
+}
+
+@media (max-width: 1024px) {
+  /*Container top*/
+  .c-article-details__wrapper{
+    flex-direction: column;
+  }
+
+  .c-article-details__wrapper .article-details__event,   .c-article-details__wrapper .article-details__info  {
+    margin-bottom: 16px;
+  }
+
 }
