@@ -53,6 +53,7 @@ export class QueFaireService {
 
   /**
    * Build the url to query from parameters
+   * Note that in order to limit CPU usage, you should use setTimeout on results
    * @param p Parameters
    */
   private buildSearchURL(p: QueFaire$Request): string {

@@ -48,6 +48,7 @@ export class HomepageComponent {
     }
   }
 
+  // TODO Remove all of that once search is implemented
   /**
    * Testing performances for parsing dates for at most 1200 elements
    */
@@ -57,12 +58,13 @@ export class HomepageComponent {
     let records = res.records;
     for(let r of records) {
       // Parsing of start - end
-      console.log(r.fields.date_start);
-      console.log(r.fields.date_end);
-
-      // Parsing literally every period
-      // let o = r.fields.occurrences.split(';');
-      // for(let i of o) console.log(i);
+      setTimeout(this.tmp(r.fields.date_start +  " - " + r.fields.date_end) , 0);
     }
+  }
+
+  tmp(s: string) {
+    return() => {
+      console.log(s);
+    };
   }
 }
