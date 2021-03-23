@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
-import {QueFaire$Request, QueFaire$Response} from "../models/queFaire.interfaces";
+import {QueFaire$Request, QueFaire$Response, Record} from "../models/queFaire.interfaces";
+import {sameDay} from "../utils/Date";
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +30,7 @@ export class QueFaireService {
    */
   getArticle(idArticle: string) {
     let params = new HttpParams();
-    params.append('refine.recordid',`${idArticle}`);
+    params = params.append('refine.recordid',`${idArticle}`);
 
     return this.httpClient.get(this.url, {params: params})
       .toPromise() as any as QueFaire$Response;
@@ -42,19 +43,47 @@ export class QueFaireService {
    */
   getRecentArticles(n: number, i = 0) {
     let params = new HttpParams();
-    params.append('rows',`${n}`);
-    params.append('sort', 'updated_at');
-    params.append('start', `${i}`);
+    params = params.append('rows',`${n}`);
+    params = params.append('sort', 'updated_at');
+    params = params.append('start', `${i}`);
 
     return this.httpClient.get(this.url, { params: params })
       .toPromise() as any as QueFaire$Response;
   }
 
+  async getSearchArticles(p: QueFaire$Request) {
+    let records = [];
+    let res = await this.requestSearchArticles(p);
+    let firstRecords = res.records;
+
+    // Searching with date
+    if(p.date) {
+      for (let r of firstRecords) {
+        if (p.date > new Date(r.fields.date_start) && p.date <= new Date(r.fields.date_end)) {
+
+          let dates = r.fields.occurrences.split(";");
+          for (let d of dates) {
+            let values = d.split("_");
+            let dt = {start: new Date(values[0]), end: new Date(values[1])};
+            if (sameDay(p.date, dt.start)) {
+              records.push(r);
+            }
+          }
+        }
+      }
+      return records;
+    } else {
+      // If no need to perform date search
+      return firstRecords;
+    }
+
+  }
+
   /**
-   * Get articles using search parameters
+   * Request articles using search parameters
    * @param p Parameters
    */
-  getSearchArticles(p: QueFaire$Request) {
+  requestSearchArticles(p: QueFaire$Request) {
     const params = this.buildParamsSearch(p);
     return this.httpClient.get(this.url, {params : params})
       .toPromise() as any as QueFaire$Response;
@@ -68,23 +97,21 @@ export class QueFaireService {
   private buildParamsSearch(p: QueFaire$Request): HttpParams {
     let params = new HttpParams();
 
-    params.append('rows','1200');
+    params = params.append('rows','1200');
 
     // Building non conventional parameters (no simple method for all)
-    if(p.q && p.q.length > 0) params.append('q',p.q);
-    if(p.blind) params.append('refine.blind','1');
-    if(p.deaf) params.append('refine.deaf','1')
-    if(p.pmr) params.append('refine.pmr','1')
+    if(p.q && p.q.length > 0) params = params.append('q',p.q);
+    if(p.blind) params = params.append('refine.blind','1');
+    if(p.deaf) params = params.append('refine.deaf','1')
+    if(p.pmr) params = params.append('refine.pmr','1')
 
     // Building other parameters
-    if(p.category) params.append('refine.category',p.category);
-    if(p.access_type) params.append('refine.access_type',p.access_type);
-    if(p.price_type) params.append('refine.price_type',p.price_type);
-    if(p.address_city) params.append('refine.address_city',p.address_city);
-    if(p.address_zipcode) params.append('refine.address_zipcode',p.address_zipcode);
+    if(p.category) params = params.append('refine.category',p.category);
+    if(p.access_type) params = params.append('refine.access_type',p.access_type);
+    if(p.price_type) params = params.append('refine.price_type',p.price_type);
+    if(p.address_city) params = params.append('refine.address_city',p.address_city);
+    if(p.address_zipcode) params = params.append('refine.address_zipcode',p.address_zipcode);
 
-
-    console.log(params);
     return params;
   }
 }

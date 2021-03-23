@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {QueFaireService} from "../../services/que-faire.service";
 import {Record} from "../../models/queFaire.interfaces";
 import {HttpErrorResponse} from "@angular/common/http";
+import {sameDay} from "../../utils/Date";
 
 @Component({
   selector: 'app-homepage',
@@ -53,18 +54,8 @@ export class HomepageComponent {
    * Testing performances for parsing dates for at most 1200 elements
    */
   async perf_testing() {
-    let p = {q: "danse"};
+    let p = {q: "", date: new Date('2021-06-07T19:00:00+02:00')};
     let res = await this.queFaireService.getSearchArticles(p);
-    let records = res.records;
-    for(let r of records) {
-      // Parsing of start - end
-      setTimeout(this.tmp(r.fields.date_start +  " - " + r.fields.date_end) , 0);
-    }
-  }
-
-  tmp(s: string) {
-    return() => {
-      console.log(s);
-    };
+    console.log(res);
   }
 }
