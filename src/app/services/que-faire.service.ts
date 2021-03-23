@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {QueFaire$Request, QueFaire$Response} from "../models/queFaire.interfaces";
 
 @Injectable({
@@ -28,16 +28,25 @@ export class QueFaireService {
    * @param idArticle recordId of article
    */
   getArticle(idArticle: string) {
-    return this.httpClient.get(`${this.url}&q=&refine.recordid=${idArticle}`)
+    let params = new HttpParams();
+    params.append('refine.recordid',`${idArticle}`);
+
+    return this.httpClient.get(this.url, {params: params})
       .toPromise() as any as QueFaire$Response;
   }
 
   /**
    * Get the most recent articles
    * @param n Number of article to fetch
+   * @param i Start index
    */
-  getRecentArticles(n: number) {
-    return this.httpClient.get(`${this.url}&q=&rows=${n}&sort=updated_at`)
+  getRecentArticles(n: number, i = 0) {
+    let params = new HttpParams();
+    params.append('rows',`${n}`);
+    params.append('sort', 'updated_at');
+    params.append('start', `${i}`);
+
+    return this.httpClient.get(this.url, { params: params })
       .toPromise() as any as QueFaire$Response;
   }
 
@@ -46,8 +55,8 @@ export class QueFaireService {
    * @param p Parameters
    */
   getSearchArticles(p: QueFaire$Request) {
-    const searchURL = this.buildSearchURL(p);
-    return this.httpClient.get(searchURL)
+    const params = this.buildParamsSearch(p);
+    return this.httpClient.get(this.url, {params : params})
       .toPromise() as any as QueFaire$Response;
   }
 
@@ -56,27 +65,26 @@ export class QueFaireService {
    * Note that in order to limit CPU usage, you should use setTimeout on results
    * @param p Parameters
    */
-  private buildSearchURL(p: QueFaire$Request): string {
-    let searchURL = this.url;
+  private buildParamsSearch(p: QueFaire$Request): HttpParams {
+    let params = new HttpParams();
+
+    params.append('rows','1200');
 
     // Building non conventional parameters (no simple method for all)
-    if(p.q && p.q.length > 0) searchURL += `&q=${p.q}`
-    if(p.blind) searchURL += '&refine.blind=1'
-    if(p.deaf) searchURL += '&refine.deaf=1'
-    if(p.pmr) searchURL += '&refine.pmr=1'
+    if(p.q && p.q.length > 0) params.append('q',p.q);
+    if(p.blind) params.append('refine.blind','1');
+    if(p.deaf) params.append('refine.deaf','1')
+    if(p.pmr) params.append('refine.pmr','1')
 
     // Building other parameters
-    searchURL += QueFaireService.buildParamRefine('category', p.category);
-    searchURL += QueFaireService.buildParamRefine('access_type', p.access_type);
-    searchURL += QueFaireService.buildParamRefine('price_type', p.price_type);
-    searchURL += QueFaireService.buildParamRefine('address_city', p.address_city);
-    searchURL += QueFaireService.buildParamRefine('address_zipcode', p.address_zipcode);
+    if(p.category) params.append('refine.category',p.category);
+    if(p.access_type) params.append('refine.access_type',p.access_type);
+    if(p.price_type) params.append('refine.price_type',p.price_type);
+    if(p.address_city) params.append('refine.address_city',p.address_city);
+    if(p.address_zipcode) params.append('refine.address_zipcode',p.address_zipcode);
 
-    searchURL += '&rows=1200';
 
-    console.log(searchURL);
-    return searchURL;
+    console.log(params);
+    return params;
   }
-
-
 }
