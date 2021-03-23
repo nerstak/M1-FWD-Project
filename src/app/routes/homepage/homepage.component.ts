@@ -40,7 +40,7 @@ export class HomepageComponent {
    * Testing performances for parsing dates for at most 1200 elements
    */
   async perf_testing() {
-    let p = {q: "", tags: ['Ados','Bibliothèques']};
+    let p = {q: "", tags: ['Ados','Bibliothèques'], category: "Expositions "};
     let res = await this.queFaireService.getSearchArticles(p);
     console.log(res);
   }
