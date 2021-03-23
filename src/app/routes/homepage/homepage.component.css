@@ -31,8 +31,9 @@
 }
 
 img{
-  width:100%;
-  max-width:300px;
+  width:auto;
+  /*max-width:300px;*/
+  height: 200px;
 }
 
 .article-accessibility > img{
