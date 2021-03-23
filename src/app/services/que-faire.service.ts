@@ -15,20 +15,45 @@ export class QueFaireService {
   constructor(private httpClient: HttpClient) { }
 
   /**
-   * Build inline parameter for refine ones
-   * @param name Name of parameter
-   * @param s Parameter variable
+   * Build the url to query from parameters
+   * Note that in order to limit CPU usage, you should use setTimeout on results
+   * @param p Parameters
    */
-  private static buildParamRefine(name: string, s: string | undefined) {
-    if(s && s.length > 0) return `&refine.${name}=${s}`
-    return "";
+  private static buildParamsSearch(p: QueFaire$Request): HttpParams {
+    let params = new HttpParams();
+
+    params = params.append('rows','1200');
+
+    if(p.q && p.q.length > 0) params = params.append('q',p.q);
+    if(p.blind) params = params.append('refine.blind','1');
+    if(p.deaf) params = params.append('refine.deaf','1')
+    if(p.pmr) params = params.append('refine.pmr','1')
+
+    if(p.category) params = params.append('refine.category',p.category);
+    if(p.access_type) params = params.append('refine.access_type',p.access_type);
+    if(p.price_type) params = params.append('refine.price_type',p.price_type);
+    if(p.address_city) params = params.append('refine.address_city',p.address_city);
+    if(p.address_zipcode) params = params.append('refine.address_zipcode',p.address_zipcode);
+
+    for(let t of p.tags) params = params.append('refine.tags', t);
+
+    return params;
   }
 
   /**
-   * Get attributes of an article
+   * Get attributes of an article through
    * @param idArticle recordId of article
    */
-  getArticle(idArticle: string) {
+  async getArticle(idArticle: string) {
+    let res = await this.requestArticle(idArticle);
+    return res.records[0];
+  }
+
+  /**
+   * Request attributes of an article through the API
+   * @param idArticle recordId of article
+   */
+  private requestArticle(idArticle: string) {
     let params = new HttpParams();
     params = params.append('refine.recordid',`${idArticle}`);
 
@@ -37,11 +62,21 @@ export class QueFaireService {
   }
 
   /**
-   * Get the most recent articles
+   * Get most recent articles
    * @param n Number of article to fetch
    * @param i Start index
    */
-  getRecentArticles(n: number, i = 0) {
+  async getRecentArticles(n: number, i = 0) {
+    let res = await this.requestRecentArticles(n, i);
+    return res.records;
+  }
+
+  /**
+   * Request the most recent articles through API
+   * @param n Number of article to fetch
+   * @param i Start index
+   */
+  private requestRecentArticles(n: number, i = 0) {
     let params = new HttpParams();
     params = params.append('rows',`${n}`);
     params = params.append('sort', 'updated_at');
@@ -51,6 +86,10 @@ export class QueFaireService {
       .toPromise() as any as QueFaire$Response;
   }
 
+  /**
+   * Get articles matching search parameters
+   * @param p Parameters
+   */
   async getSearchArticles(p: QueFaire$Request) {
     let records = [];
     let res = await this.requestSearchArticles(p);
@@ -76,42 +115,15 @@ export class QueFaireService {
       // If no need to perform date search
       return firstRecords;
     }
-
   }
 
   /**
-   * Request articles using search parameters
+   * Request articles using search parameters through API
    * @param p Parameters
    */
-  requestSearchArticles(p: QueFaire$Request) {
-    const params = this.buildParamsSearch(p);
+  private requestSearchArticles(p: QueFaire$Request) {
+    const params = QueFaireService.buildParamsSearch(p);
     return this.httpClient.get(this.url, {params : params})
       .toPromise() as any as QueFaire$Response;
-  }
-
-  /**
-   * Build the url to query from parameters
-   * Note that in order to limit CPU usage, you should use setTimeout on results
-   * @param p Parameters
-   */
-  private buildParamsSearch(p: QueFaire$Request): HttpParams {
-    let params = new HttpParams();
-
-    params = params.append('rows','1200');
-
-    // Building non conventional parameters (no simple method for all)
-    if(p.q && p.q.length > 0) params = params.append('q',p.q);
-    if(p.blind) params = params.append('refine.blind','1');
-    if(p.deaf) params = params.append('refine.deaf','1')
-    if(p.pmr) params = params.append('refine.pmr','1')
-
-    // Building other parameters
-    if(p.category) params = params.append('refine.category',p.category);
-    if(p.access_type) params = params.append('refine.access_type',p.access_type);
-    if(p.price_type) params = params.append('refine.price_type',p.price_type);
-    if(p.address_city) params = params.append('refine.address_city',p.address_city);
-    if(p.address_zipcode) params = params.append('refine.address_zipcode',p.address_zipcode);
-
-    return params;
   }
 }

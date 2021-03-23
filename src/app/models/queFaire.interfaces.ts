@@ -58,5 +58,6 @@ export interface QueFaire$Request {
   access_type?: string,
   address_city?: string,
   address_zipcode?: string,
-  date?: Date
+  date?: Date,
+  tags: string[]
 }
