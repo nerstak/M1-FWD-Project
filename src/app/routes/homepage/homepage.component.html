@@ -12,7 +12,7 @@
           <div class="article-summary">
             <h1>{{articles[0].fields.title}}</h1>
             <p>{{articles[0].fields.address_street}}<br/>{{articles[0].fields.address_city}}</p>
-            <p>End: {{articles[0].fields.date_end}}</p>
+            <p [innerHTML]="articles[0].fields.date_description"></p>
             <p>{{articles[0].fields.category}}</p>
             <div class="article-accessibility">
               <img src="assets/svg/deaf.svg" alt="deaf icon" *ngIf="articles[0].fields.deaf"/>
@@ -36,7 +36,7 @@
           <div class="article-summary">
             <h1>{{article.fields.title}}</h1>
             <p>{{article.fields.address_street}}<br/>{{article.fields.address_city}}</p>
-            <p>End: {{article.fields.date_end}}</p>
+            <p [innerHTML]="article.fields.date_description"></p>
             <p>{{article.fields.category}}</p>
             <div class="article-accessibility">
               <img src="assets/svg/deaf.svg" alt="deaf icon" *ngIf="article.fields.deaf"/>
