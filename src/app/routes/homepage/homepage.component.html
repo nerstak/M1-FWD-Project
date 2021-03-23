@@ -6,7 +6,7 @@
         also add other stuff, like price, etc.
         -->
         <div class="article-content">
-          <div>
+          <div class="article-cover">
             <img src="{{articles[0].fields.cover_url}}" alt="{{articles[0].fields.cover_alt}}"/>
           </div>
           <div class="article-summary">
@@ -21,7 +21,6 @@
             </div>
           </div>
           <div [innerHTML]="articles[0].fields.description" class="article-description">
-
           </div>
         </div>
       </mat-card>
@@ -31,7 +30,7 @@
     <div class="article" *ngFor="let article of articles!.slice(1)">
       <mat-card>
         <div class="article-content">
-          <div>
+          <div class="article-cover">
             <img src="{{article.fields.cover_url}}" alt="{{article.fields.cover_alt}}"/>
           </div>
           <div class="article-summary">
