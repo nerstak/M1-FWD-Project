@@ -35,8 +35,9 @@ export default interface Fields {
   pmr: boolean,
   deaf: boolean,
   date_end: Date,
+  date_start: Date,
   access_type: string,
-  occurrences: Date,
+  occurrences: string,
   address_street: string,
   category: string,
   title: string,
@@ -45,5 +46,20 @@ export default interface Fields {
   cover_url: string,
   cover_alt: string,
   address_city: string,
+  address_zipcode: string,
   price_type: string
+}
+
+export interface QueFaire$Request {
+  deaf?: boolean,
+  blind?: boolean,
+  pmr?: boolean,
+  q?: string,
+  category?: string,
+  price_type?: string,
+  access_type?: string,
+  address_city?: string,
+  address_zipcode?: string,
+  date?: Date,
+  tags: string[]
 }

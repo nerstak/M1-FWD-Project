@@ -4,6 +4,7 @@ import Fields, {Record} from "../../models/queFaire.interfaces";
 import {HttpErrorResponse} from "@angular/common/http";
 import {DetailsArticleService} from "../../services/details-article.service";
 import {Router} from "@angular/router";
+import {sameDay} from "../../utils/Date";
 
 @Component({
   selector: 'app-homepage',
@@ -15,30 +16,18 @@ export class HomepageComponent {
 
   constructor(private queFaireService: QueFaireService, private articleService : DetailsArticleService, private router : Router) {
     // We don't need to deal with the promise return, so we make the warning disappear 😈
-    this.loadArticles().then();
+    this.loadArticles();
+
+    this.perf_testing().then();
   }
 
-  /**
-   * Test function
-   * Load a single article based on its id
-   */
-  async getArticle() {
-    const id = "c83d2ec3ee2c5a1a06cdd81dacb96a747800691e";
-
-    const result = await this.queFaireService.getArticle(id);
-
-    console.log(result.records[0].fields.description);
-  }
 
   /**
    * Load articles
    */
-  async loadArticles() {
+  loadArticles() {
     try {
-      const result = await this.queFaireService.getRecentArticles(11);
-      if (result.records.length > 0) {
-        this.articles = result.records;
-      }
+      this.queFaireService.getRecentArticles(11).then(articles => this.articles = articles);
     } catch (err) {
       if (err instanceof HttpErrorResponse) {
         this.articles = null;
@@ -54,5 +43,15 @@ export class HomepageComponent {
   onClickCard(field : Fields){
     this.articleService.setDetailedArticle(field);
     this.router.navigateByUrl('/article')
+  }
+
+  // TODO Remove all of that once search is implemented
+  /**
+   * Testing performances for parsing dates for at most 1200 elements
+   */
+  async perf_testing() {
+    let p = {q: "", tags: ['Ados','Bibliothèques'], category: "Expositions "};
+    let res = await this.queFaireService.getSearchArticles(p);
+    console.log(res);
   }
 }
