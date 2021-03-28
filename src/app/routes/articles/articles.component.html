@@ -1,0 +1,39 @@
+<div class="c-article-details" *ngIf="detailedArticleToDisplay">
+  <div class="c-article-details__wrapper-general">
+    <mat-card class="article-details__event">
+      <img src="../../../assets/images/tour_eiffel.jpg">
+      <div class="article-details__event-description">
+        <h1>{{detailedArticleToDisplay.title}}</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent a metus sapien. Etiam vel velit ut turpis feugiat semper. Maecenas euismod iaculis dui, sit amet finibus est suscipit non. Quisque in tellus orci. Quisque aliquam mi efficitur erat rutrum, vitae congue risus fermentum. Morbi pretium urna non semper consequat</p>
+      </div>
+    </mat-card>
+
+    <mat-card class="article-details__info">
+      <h1>Info</h1>
+      <p>{{detailedArticleToDisplay.address_street}}</p>
+      <p>{{detailedArticleToDisplay.address_city}}</p>
+<!--      todo change with date begin-->
+      <p>{{detailedArticleToDisplay.date_end}}</p>
+      <p>{{detailedArticleToDisplay.date_end}}</p>
+    </mat-card>
+  </div>
+
+  <mat-card class="c-article-details__article">
+    <p [innerHTML]="detailedArticleToDisplay.description">
+    </p>
+  </mat-card>
+
+  <mat-card class="c-article-details__more">
+    <div>
+      <h1>How to go ?</h1>
+      <p>fdsflkj</p>
+      <p>fdsflkj</p>
+      <p>fdsflkj</p>
+    </div>
+    <div>
+      <h1>More info</h1>
+      <p>06 12 34 56 78</p>
+      <p>mail@mail.fr</p>
+    </div>
+  </mat-card>
+</div>
