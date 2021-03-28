@@ -1,4 +1,4 @@
-<div class="c-article-details">
+<div class="c-article-details" *ngIf="detailedArticleToDisplay">
   <div class="c-article-details__wrapper-general">
     <mat-card class="article-details__event">
       <img src="../../../assets/images/tour_eiffel.jpg">
@@ -10,18 +10,16 @@
 
     <mat-card class="article-details__info">
       <h1>Info</h1>
-      <p>Adresse</p>
-      <p>Ville</p>
-      <p>Date de début</p>
-      <p>Date de fin</p>
+      <p>{{detailedArticleToDisplay.address_street}}</p>
+      <p>{{detailedArticleToDisplay.address_city}}</p>
+<!--      todo change with date begin-->
+      <p>{{detailedArticleToDisplay.date_end}}</p>
+      <p>{{detailedArticleToDisplay.date_end}}</p>
     </mat-card>
   </div>
 
   <mat-card class="c-article-details__article">
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc a magna enim. Nam ornare accumsan venenatis. Morbi sollicitudin justo interdum est aliquet, in vulputate arcu rutrum. Maecenas viverra magna nibh, eget tempus tortor pharetra id. Aliquam vehicula sem vel dictum luctus. Etiam euismod orci sed nibh venenatis ultrices vel sed sapien. Vestibulum tortor elit, ultrices nec libero quis, interdum finibus nulla.
-
-      Vivamus porttitor aliquam metus non placerat. Etiam arcu dolor, efficitur et justo sit amet, feugiat suscipit ipsum. Duis et lectus nec nulla rutrum lacinia vel at ex. Maecenas eget luctus velit. Sed ultrices lectus a lorem fringilla iaculis. Curabitur sit amet facilisis orci. Curabitur non nulla et dolor congue hendrerit. Proin est neque, iaculis sed arcu et, ultricies condimentum erat. Donec commodo rutrum ipsum, at dictum nulla molestie id.
+    <p [innerHTML]="detailedArticleToDisplay.description">
     </p>
   </mat-card>
 
