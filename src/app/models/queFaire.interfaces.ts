@@ -20,15 +20,17 @@ export interface Record {
   fields: Fields,
   geometry: {
     coordinates: [
-      lon: number,
-      lat: number
+        {
+          lon: number,
+          lat: number
+        }
     ]}
 }
 
 /**
  * Fields of a record
  */
-interface Fields {
+export default interface Fields {
   blind: boolean,
   pmr: boolean,
   deaf: boolean,
