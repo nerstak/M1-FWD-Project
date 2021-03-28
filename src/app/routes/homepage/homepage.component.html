@@ -13,7 +13,7 @@
   </div>
   <div class="articles-smaller">
     <div class="article" *ngFor="let article of articles!.slice(1)">
-      <mat-card>
+      <mat-card (click)="onClickCard(article.fields)">
         <h1>{{article.fields.title}}</h1>
         <img src="{{article.fields.cover_url}}" alt="{{article.fields.cover_alt}}"/>
         <p>{{article.fields.category}}</p>

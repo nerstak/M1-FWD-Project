@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {QueFaireService} from "../../services/que-faire.service";
-import {Record} from "../../models/queFaire.interfaces";
+import Fields, {Record} from "../../models/queFaire.interfaces";
 import {HttpErrorResponse} from "@angular/common/http";
+import {DetailsArticleService} from "../../services/details-article.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-homepage',
@@ -11,7 +13,7 @@ import {HttpErrorResponse} from "@angular/common/http";
 export class HomepageComponent {
   articles: Record[] | null = null;
 
-  constructor(private queFaireService: QueFaireService) {
+  constructor(private queFaireService: QueFaireService, private articleService : DetailsArticleService, private router : Router) {
     // We don't need to deal with the promise return, so we make the warning disappear 😈
     this.loadArticles().then();
   }
@@ -44,5 +46,13 @@ export class HomepageComponent {
         throw err;
       }
     }
+  }
+
+  /**
+   * OnClickCardEvent
+   * */
+  onClickCard(field : Fields){
+    this.articleService.setDetailedArticle(field);
+    this.router.navigateByUrl('/article')
   }
 }
