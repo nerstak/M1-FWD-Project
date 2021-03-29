@@ -20,21 +20,24 @@ export interface Record {
   fields: Fields,
   geometry: {
     coordinates: [
-      lon: number,
-      lat: number
+        {
+          lon: number,
+          lat: number
+        }
     ]}
 }
 
 /**
  * Fields of a record
  */
-interface Fields {
+export default interface Fields {
   blind: boolean,
   pmr: boolean,
   deaf: boolean,
   date_end: Date,
+  date_start: Date,
   access_type: string,
-  occurrences: Date,
+  occurrences: string,
   address_street: string,
   category: string,
   title: string,
@@ -43,6 +46,21 @@ interface Fields {
   cover_url: string,
   cover_alt: string,
   address_city: string,
-  price_type: string,
-  date_description: string
+  date_description: string,
+  address_zipcode: string,
+  price_type: string
+}
+
+export interface QueFaire$Request {
+  deaf?: boolean,
+  blind?: boolean,
+  pmr?: boolean,
+  q?: string,
+  category?: string,
+  price_type?: string,
+  access_type?: string,
+  address_city?: string,
+  address_zipcode?: string,
+  date?: Date,
+  tags: string[]
 }

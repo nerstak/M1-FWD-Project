@@ -28,7 +28,7 @@
   </div>
   <div class="articles-smaller">
     <div class="article" *ngFor="let article of articles!.slice(1)">
-      <mat-card>
+      <mat-card (click)="onClickCard(article.fields)">
         <div class="article-content">
           <div class="article-cover">
             <img src="{{article.fields.cover_url}}" alt="{{article.fields.cover_alt}}"/>
