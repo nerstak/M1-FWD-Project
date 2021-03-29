@@ -46,6 +46,7 @@ export default interface Fields {
   cover_url: string,
   cover_alt: string,
   address_city: string,
+  date_description: string,
   address_zipcode: string,
   price_type: string
 }
