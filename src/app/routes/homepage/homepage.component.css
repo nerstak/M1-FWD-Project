@@ -38,11 +38,13 @@
 .article-cover img{
   width:auto;
   height: 300px;
+  max-width: 500px;
 }
 
 .articles-smaller img{
   width:auto;
   height: 200px;
+  max-width: 350px;
 }
 
 .article-accessibility > img{
@@ -58,6 +60,12 @@
 .article-description{
   flex-grow: 1;
 }
+
+.article-description img{
+  width: 150px;
+  height: auto;
+}
+
 
 @media (min-width: 0px) and (max-width: 480px) {
 
@@ -130,5 +138,14 @@
 
   .articles-smaller>.article {
     width: auto;
+  }
+
+  .article-main .article-content{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .article-main .article-cover{
+    padding-bottom: 3em;
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ViewEncapsulation} from '@angular/core';
 import {QueFaireService} from "../../services/que-faire.service";
 import {Record} from "../../models/queFaire.interfaces";
 import {HttpErrorResponse} from "@angular/common/http";
@@ -6,7 +6,8 @@ import {HttpErrorResponse} from "@angular/common/http";
 @Component({
   selector: 'app-homepage',
   templateUrl: './homepage.component.html',
-  styleUrls: ['./homepage.component.css']
+  styleUrls: ['./homepage.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class HomepageComponent {
   articles: Record[] | null = null;
