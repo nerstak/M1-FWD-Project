@@ -1,10 +1,7 @@
-<div class="articles-container" *ngIf="articles">
+<div class="articles-container" *ngIf="articles != null && articles.length != 0">
   <div class="article-main">
     <div class="article">
       <mat-card>
-        <!--      TODO: Ideally, we should put the date, or from date to date
-        also add other stuff, like price, etc.
-        -->
         <div class="article-content">
           <div class="article-cover">
             <img src="{{articles[0].fields.cover_url}}" alt="{{articles[0].fields.cover_alt}}"/>
@@ -52,3 +49,16 @@
     <button mat-flat-button color="accent" (click)="loadArticles()">Load more article</button>
   </div>
 </div>
+
+<div class="loading" *ngIf="articles == null || articles.length == 0">
+  <mat-card>
+    <p>Loading articles</p>
+    <fa-icon [icon]="faCircleNotch" [spin]="true"></fa-icon>
+  </mat-card>
+  <mat-card class="error-card" *ngIf="error">
+    <fa-icon [icon]="faWarning"></fa-icon>
+    <p>Maybe the category does not exists?</p>
+  </mat-card>
+
+</div>
+

@@ -1,10 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {QueFaireService} from "../../services/que-faire.service";
 import {DetailsArticleService} from "../../services/details-article.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import {Router} from "@angular/router";
 import Fields, {Record} from "../../models/queFaire.interfaces";
 import {HttpErrorResponse} from "@angular/common/http";
-import {Subscription} from "rxjs";
+import {faCircleNotch, fas, faSpinner, faSignOutAlt, faExclamationTriangle} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-articles-list',
@@ -13,9 +13,13 @@ import {Subscription} from "rxjs";
 })
 export class ArticlesListComponent implements OnInit {
   articles: Record[] | null = null;
+  error = false;
 
   @Input()
   category = "";
+
+  faCircleNotch = faCircleNotch
+  faWarning = faExclamationTriangle
 
 
   constructor(private queFaireService: QueFaireService, private articleService : DetailsArticleService, private router : Router) {
@@ -23,6 +27,7 @@ export class ArticlesListComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadArticles();
+    setTimeout(this.errorMessage(), 10000);
   }
 
   /**
@@ -57,5 +62,11 @@ export class ArticlesListComponent implements OnInit {
   onClickCard(field : Fields){
     this.articleService.setDetailedArticle(field);
     this.router.navigateByUrl('/article')
+  }
+
+  errorMessage() {
+    return () => {
+      if(this.articles == null || this.articles.length == 0) this.error = true;
+    }
   }
 }
