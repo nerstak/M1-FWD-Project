@@ -58,8 +58,6 @@ export class QueFaireService {
     params = params.append('refine.recordid',`${idArticle}`);
 
     return this.httpClient.get<QueFaire$Response>(this.url, {params: params}).toPromise();
-    // return this.httpClient.get(this.url, {params: params})
-    //   .toPromise() as any as QueFaire$Response;
   }
 
   /**
@@ -111,7 +109,7 @@ export class QueFaireService {
             // Getting both dates
             const dt = {start: new Date(values[0]), end: new Date(values[1])};
 
-            // Checking if same day as event 
+            // Checking if same day as event
             if (sameDay(p.date, dt.start)) {
               records.push(r);
             }
