@@ -1,0 +1,5 @@
+.nav-bar{
+  height: 88px;
+  display: flex;
+  justify-content: space-around;
+}
