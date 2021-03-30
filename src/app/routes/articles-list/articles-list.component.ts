@@ -1,20 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {QueFaireService} from "../../services/que-faire.service";
 import {DetailsArticleService} from "../../services/details-article.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import Fields, {Record} from "../../models/queFaire.interfaces";
 import {HttpErrorResponse} from "@angular/common/http";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-articles-list',
   templateUrl: './articles-list.component.html',
   styleUrls: ['./articles-list.component.css']
 })
-export class ArticlesListComponent  {
+export class ArticlesListComponent implements OnInit {
   articles: Record[] | null = null;
 
+  @Input()
+  category = "";
+
+
   constructor(private queFaireService: QueFaireService, private articleService : DetailsArticleService, private router : Router) {
-    // We don't need to deal with the promise return, so we make the warning disappear 😈
+  }
+
+  ngOnInit(): void {
     this.loadArticles();
   }
 
@@ -27,7 +34,7 @@ export class ArticlesListComponent  {
       const startingRow = this.articles ? this.articles.length : 0;
       // We only want an odd number of articles in the page
       const additional = startingRow != 0 && startingRow % 2 == 1 ? 1 : 0;
-      this.queFaireService.getRecentArticles(11 + additional, startingRow).then(articles => {
+      this.queFaireService.getRecentArticles(11 + additional, startingRow, this.category).then(articles => {
           if (!this.articles) {
             this.articles = articles;
           } else {
@@ -51,5 +58,4 @@ export class ArticlesListComponent  {
     this.articleService.setDetailedArticle(field);
     this.router.navigateByUrl('/article')
   }
-
 }

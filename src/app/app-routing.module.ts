@@ -6,6 +6,7 @@ import {DetailsGuard} from "./guard/details.guard";
 
 const routes: Routes = [
   { path: '', component: HomepageComponent },
+  { path: 'category/:category', component: HomepageComponent },
   { path: 'article', component: ArticlesComponent, canActivate: [DetailsGuard] }
 ];
 

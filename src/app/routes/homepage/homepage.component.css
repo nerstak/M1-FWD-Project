@@ -1,7 +1,14 @@
+body {
+  background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2));
+}
+
+.title {
+  padding: 3em 2em 1em 2em;
+}
+
 .articles-container {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2));
   background-repeat: no-repeat;
-  padding: 3em 2em 2em 2em;
+  padding: 1em 2em 2em 2em;
 }
 
 .articles-smaller {
