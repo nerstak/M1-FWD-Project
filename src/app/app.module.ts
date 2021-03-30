@@ -9,12 +9,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatCardModule} from "@angular/material/card";
 import {MatButtonModule} from "@angular/material/button";
 import { ArticlesComponent } from './routes/articles/articles.component';
+import { ArticlesListComponent } from './routes/articles-list/articles-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomepageComponent,
-    ArticlesComponent
+    ArticlesComponent,
+    ArticlesListComponent
   ],
   imports: [
     BrowserModule,
