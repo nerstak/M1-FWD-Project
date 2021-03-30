@@ -3,10 +3,11 @@ import { RouterModule, Routes } from '@angular/router';
 import {HomepageComponent} from "./routes/homepage/homepage.component";
 import {ArticlesComponent} from "./routes/articles/articles.component";
 import {DetailsGuard} from "./guard/details.guard";
+import {DetailsResolver} from "./resolver/details.resolver";
 
 const routes: Routes = [
   { path: '', component: HomepageComponent },
-  { path: 'article/:id', component: ArticlesComponent, canActivate: [DetailsGuard] }
+  { path: 'article/:id', component: ArticlesComponent, resolve:{record : DetailsResolver} }
 ];
 
 @NgModule({

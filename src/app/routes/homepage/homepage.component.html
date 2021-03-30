@@ -34,8 +34,7 @@
             <img src="{{article.fields.cover_url}}" alt="{{article.fields.cover_alt}}"/>
           </div>
           <div class="article-summary">
-            <a routerLink="/articles/{{article.recordId}}"><h1>{{article.fields.title}}</h1></a>̀.
-
+            <a routerLink="/article/{{article.recordid}}">{{article.fields.title}}</a>̀
             <p>{{article.fields.address_street}}<br/>{{article.fields.address_city}}</p>
             <p [innerHTML]="article.fields.date_description"></p>
             <p>{{article.fields.category}}</p>
