@@ -24,8 +24,14 @@ export class HomepageComponent implements OnInit{
     const cat = this.route.snapshot.paramMap.get("category");
 
     if(cat) {
-      this.category = cat;
-      this.title = this.category;
+      this.title = cat;
+
+      // Parsing category
+      if(cat[cat.length - 1] === " ") {
+        this.category = cat.slice(0, -1) + '+';
+      } else {
+        this.category = cat;
+      }
     }
   }
 }
