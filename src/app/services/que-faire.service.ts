@@ -82,8 +82,7 @@ export class QueFaireService {
     params = params.append('rows',`${n}`);
     params = params.append('sort', 'updated_at');
     params = params.append('start', `${i}`);
-    if(category.length > 0) params = params.append('category', category)
-
+    if(category.length > 0) params = params.append('refine.category', category)
 
     return this.httpClient.get<QueFaire$Response>(this.url, {params: params}).toPromise();
   }

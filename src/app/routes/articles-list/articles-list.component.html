@@ -1,0 +1,64 @@
+<div class="articles-container" *ngIf="articles != null && articles.length != 0">
+  <div class="article-main">
+    <div class="article">
+      <mat-card>
+        <div class="article-content">
+          <div class="article-cover">
+            <img src="{{articles[0].fields.cover_url}}" alt="{{articles[0].fields.cover_alt}}"/>
+          </div>
+          <div class="article-summary">
+            <h1>{{articles[0].fields.title}}</h1>
+            <p>{{articles[0].fields.address_street}}<br/>{{articles[0].fields.address_city}}</p>
+            <p [innerHTML]="articles[0].fields.date_description"></p>
+            <p>{{articles[0].fields.category}}</p>
+            <div class="article-accessibility">
+              <img src="assets/svg/deaf.svg" alt="deaf icon" *ngIf="articles[0].fields.deaf"/>
+              <img src="assets/svg/blind.svg" alt="blind icon" *ngIf="articles[0].fields.blind"/>
+              <img src="assets/svg/pmr.svg" alt="pmr icon" *ngIf="articles[0].fields.pmr"/>
+            </div>
+          </div>
+          <div [innerHTML]="articles[0].fields.description" class="article-description">
+          </div>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+  <div class="articles-smaller">
+    <div class="article" *ngFor="let article of articles!.slice(1)">
+      <mat-card (click)="onClickCard(article.fields)">
+        <div class="article-content">
+          <div class="article-cover">
+            <img src="{{article.fields.cover_url}}" alt="{{article.fields.cover_alt}}"/>
+          </div>
+          <div class="article-summary">
+            <h1>{{article.fields.title}}</h1>
+            <p>{{article.fields.address_street}}<br/>{{article.fields.address_city}}</p>
+            <p [innerHTML]="article.fields.date_description"></p>
+            <p>{{article.fields.category}}</p>
+            <div class="article-accessibility">
+              <img src="assets/svg/deaf.svg" alt="deaf icon" *ngIf="article.fields.deaf"/>
+              <img src="assets/svg/blind.svg" alt="blind icon" *ngIf="article.fields.blind"/>
+              <img src="assets/svg/pmr.svg" alt="pmr icon" *ngIf="article.fields.pmr"/>
+            </div>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+  <div class="button-container">
+    <button mat-flat-button color="accent" (click)="loadArticles()">Load more article</button>
+  </div>
+</div>
+
+<div class="loading" *ngIf="articles == null || articles.length == 0">
+  <mat-card>
+    <p>Loading articles</p>
+    <fa-icon [icon]="faCircleNotch" [spin]="true"></fa-icon>
+  </mat-card>
+  <mat-card class="error-card" *ngIf="error">
+    <fa-icon [icon]="faWarning"></fa-icon>
+    <p>Maybe the category does not exists?</p>
+  </mat-card>
+
+</div>
+
