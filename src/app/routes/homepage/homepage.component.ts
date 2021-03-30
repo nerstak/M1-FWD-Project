@@ -24,11 +24,22 @@ export class HomepageComponent {
 
 
   /**
-   * Load articles
+   * Load articles at startup and for infinite loading
    */
   loadArticles() {
     try {
-      this.queFaireService.getRecentArticles(11).then(articles => this.articles = articles);
+      // Starting row for fetching
+      const startingRow = this.articles ? this.articles.length : 0;
+      // We only want an odd number of articles in the page
+      const additional = startingRow != 0 && startingRow % 2 == 1 ? 1 : 0;
+      this.queFaireService.getRecentArticles(11 + additional, startingRow).then(articles => {
+          if (!this.articles) {
+            this.articles = articles;
+          } else {
+            this.articles.push.apply(this.articles, articles);
+          }
+        }
+      );
     } catch (err) {
       if (err instanceof HttpErrorResponse) {
         this.articles = null;
