@@ -28,13 +28,14 @@
   </div>
   <div class="articles-smaller">
     <div class="article" *ngFor="let article of articles!.slice(1)">
-      <mat-card (click)="onClickCard(article.fields)">
+      <mat-card>
         <div class="article-content">
           <div class="article-cover">
             <img src="{{article.fields.cover_url}}" alt="{{article.fields.cover_alt}}"/>
           </div>
           <div class="article-summary">
-            <h1>{{article.fields.title}}</h1>
+            <a routerLink="/articles/{{article.recordId}}"><h1>{{article.fields.title}}</h1></a>̀.
+
             <p>{{article.fields.address_street}}<br/>{{article.fields.address_city}}</p>
             <p [innerHTML]="article.fields.date_description"></p>
             <p>{{article.fields.category}}</p>

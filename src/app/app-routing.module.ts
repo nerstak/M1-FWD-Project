@@ -6,7 +6,7 @@ import {DetailsGuard} from "./guard/details.guard";
 
 const routes: Routes = [
   { path: '', component: HomepageComponent },
-  { path: 'article', component: ArticlesComponent, canActivate: [DetailsGuard] }
+  { path: 'article/:id', component: ArticlesComponent, canActivate: [DetailsGuard] }
 ];
 
 @NgModule({
