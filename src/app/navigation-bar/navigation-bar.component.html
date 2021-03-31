@@ -1,87 +1,116 @@
+<div>
 <mat-toolbar color="primary" class="nav-bar">
-  <mat-form-field class="research-field">
-    <mat-label>search</mat-label>
-    <input matInput type="text">
-    <button mat-button matSuffix mat-icon-button aria-label="Clear">
-      <mat-icon>close</mat-icon>
+
+  <div fxShow="true" fxHide.lt-md="true">
+
+    <mat-form-field class="research-field">
+      <mat-label>search</mat-label>
+      <input matInput type="text">
+      <button mat-button matSuffix mat-icon-button aria-label="Clear">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <button mat-button [matMenuTriggerFor]="categoriesMenu">catégories</button>
+
+    <button mat-button [matMenuTriggerFor]="subcategoriesMenu">sous-catégories</button>
+
+    <button mat-button>recherche avancée</button>
+
+  </div>
+
+  <div fxShow="true" fxHide.gt-sm="true">
+    <button mat-icon-button class="example-icon" aria-label="icon-button" (click)="sidenav.toggle()">
+      <mat-icon>menu</mat-icon>
     </button>
-  </mat-form-field>
-
-  <button mat-button [matMenuTriggerFor]="categoriesMenu">catégories</button>
-  <mat-menu #categoriesMenu="matMenu" yPosition="below">
-    <button mat-menu-item>Animations</button>
-    <button mat-menu-item>Concerts</button>
-    <button mat-menu-item>Evénements</button>
-    <button mat-menu-item>Expositions</button>
-    <button mat-menu-item>Spectacles</button>
-  </mat-menu>
-
-  <button mat-button [matMenuTriggerFor]="subcategoriesMenu">sous-catégories</button>
-  <mat-menu #subcategoriesMenu="matMenu" yPosition="below">
-    <button mat-menu-item [matMenuTriggerFor]="AnimationsMenu">Animations</button>
-    <button mat-menu-item [matMenuTriggerFor]="ConcertsMenu">Concerts</button>
-    <button mat-menu-item [matMenuTriggerFor]="EvenementsMenu">Concerts</button>
-    <button mat-menu-item [matMenuTriggerFor]="ExpositionsMenu">Expositions</button>
-    <button mat-menu-item [matMenuTriggerFor]="SpectaclesMenu">Spectacles</button>
-  </mat-menu>
-
-
-  <mat-menu #AnimationsMenu="matMenu" yPosition="below">
-    <button mat-menu-item>Atelier / Cours</button>
-    <button mat-menu-item>Autre Animation</button>
-    <button mat-menu-item>Balade</button>
-    <button mat-menu-item>Conférence / Débat</button>
-    <button mat-menu-item>Lecture / Rencontre</button>
-    <button mat-menu-item>Loisirs / Jeux</button>
-    <button mat-menu-item>Stage</button>
-    <button mat-menu-item>Visite guidée</button>
-  </mat-menu>
-
-  <mat-menu #ConcertsMenu="matMenu" yPosition="below">
-    <button mat-menu-item>Autre conert</button>
-    <button mat-menu-item>Chanson Française</button>
-    <button mat-menu-item>Classique</button>
-    <button mat-menu-item>Folk</button>
-    <button mat-menu-item>Hip-Hop</button>
-    <button mat-menu-item>Jazz</button>
-    <button mat-menu-item>Musiques du Monde</button>
-    <button mat-menu-item>Pop / Variété</button>
-    <button mat-menu-item>Rock</button>
-    <button mat-menu-item>Electronique</button>
-  </mat-menu>
-
-  <mat-menu #EvenementsMenu="matMenu" yPosition="below">
-    <button mat-menu-item>Autre Evénements</button>
-    <button mat-menu-item>Brocante / Marché</button>
-    <button mat-menu-item>Festival / Cycle</button>
-    <button mat-menu-item>Salon</button>
-    <button mat-menu-item>Soirée / Bal</button>
-    <button mat-menu-item>Evénements sportifs</button>
-  </mat-menu>
-
-  <mat-menu #ExpositionsMenu="matMenu" yPosition="below">
-    <button mat-menu-item>Art Contemporain</button>
-    <button mat-menu-item>Autre expo</button>
-    <button mat-menu-item>Beaux-arts</button>
-    <button mat-menu-item>Design / Mode</button>
-    <button mat-menu-item>Histoire / Civilisations</button>
-    <button mat-menu-item>Illustration / BD</button>
-    <button mat-menu-item>Photographie</button>
-    <button mat-menu-item>Sciences / Techniques</button>
-    <button mat-menu-item>Street-art</button>
-  </mat-menu>
-
-  <mat-menu #SpectaclesMenu="matMenu" yPosition="below">
-    <button mat-menu-item>Autre Spectacle</button>
-    <button mat-menu-item>Cirque / Art de la Rue</button>
-    <button mat-menu-item>Danse</button>
-    <button mat-menu-item>Humour</button>
-    <button mat-menu-item>Jeune public</button>
-    <button mat-menu-item>Opéra / Musical</button>
-    <button mat-menu-item>Projection</button>
-    <button mat-menu-item>Théâtre</button>
-  </mat-menu>
-
-  <button mat-button>recherche avancée</button>
+  </div>
 
 </mat-toolbar>
+
+<mat-sidenav-container fxFlexFill class="example-container">
+  <mat-sidenav #sidenav fxLayout="column">
+    <div fxLayout="column">
+      <button mat-button [matMenuTriggerFor]="categoriesMenu">catégories</button>
+      <button mat-button [matMenuTriggerFor]="subcategoriesMenu">sous-catégories</button>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+
+<!--  MENUS DEFINITION  -->
+
+<mat-menu #subcategoriesMenu="matMenu" yPosition="below">
+  <button mat-menu-item [matMenuTriggerFor]="AnimationsMenu">Animations</button>
+  <button mat-menu-item [matMenuTriggerFor]="ConcertsMenu">Concerts</button>
+  <button mat-menu-item [matMenuTriggerFor]="EvenementsMenu">Concerts</button>
+  <button mat-menu-item [matMenuTriggerFor]="ExpositionsMenu">Expositions</button>
+  <button mat-menu-item [matMenuTriggerFor]="SpectaclesMenu">Spectacles</button>
+</mat-menu>
+
+<mat-menu #categoriesMenu="matMenu" yPosition="below">
+  <button mat-menu-item>Animations</button>
+  <button mat-menu-item>Concerts</button>
+  <button mat-menu-item>Evénements</button>
+  <button mat-menu-item>Expositions</button>
+  <button mat-menu-item>Spectacles</button>
+</mat-menu>
+
+<mat-menu #AnimationsMenu="matMenu" yPosition="below">
+  <button mat-menu-item>Atelier / Cours</button>
+  <button mat-menu-item>Autre Animation</button>
+  <button mat-menu-item>Balade</button>
+  <button mat-menu-item>Conférence / Débat</button>
+  <button mat-menu-item>Lecture / Rencontre</button>
+  <button mat-menu-item>Loisirs / Jeux</button>
+  <button mat-menu-item>Stage</button>
+  <button mat-menu-item>Visite guidée</button>
+</mat-menu>
+
+<mat-menu #ConcertsMenu="matMenu" yPosition="below">
+  <button mat-menu-item>Autre conert</button>
+  <button mat-menu-item>Chanson Française</button>
+  <button mat-menu-item>Classique</button>
+  <button mat-menu-item>Folk</button>
+  <button mat-menu-item>Hip-Hop</button>
+  <button mat-menu-item>Jazz</button>
+  <button mat-menu-item>Musiques du Monde</button>
+  <button mat-menu-item>Pop / Variété</button>
+  <button mat-menu-item>Rock</button>
+  <button mat-menu-item>Electronique</button>
+</mat-menu>
+
+<mat-menu #EvenementsMenu="matMenu" yPosition="below">
+  <button mat-menu-item>Autre Evénements</button>
+  <button mat-menu-item>Brocante / Marché</button>
+  <button mat-menu-item>Festival / Cycle</button>
+  <button mat-menu-item>Salon</button>
+  <button mat-menu-item>Soirée / Bal</button>
+  <button mat-menu-item>Evénements sportifs</button>
+</mat-menu>
+
+<mat-menu #ExpositionsMenu="matMenu" yPosition="below">
+  <button mat-menu-item>Art Contemporain</button>
+  <button mat-menu-item>Autre expo</button>
+  <button mat-menu-item>Beaux-arts</button>
+  <button mat-menu-item>Design / Mode</button>
+  <button mat-menu-item>Histoire / Civilisations</button>
+  <button mat-menu-item>Illustration / BD</button>
+  <button mat-menu-item>Photographie</button>
+  <button mat-menu-item>Sciences / Techniques</button>
+  <button mat-menu-item>Street-art</button>
+</mat-menu>
+
+<mat-menu #SpectaclesMenu="matMenu" yPosition="below">
+  <button mat-menu-item>Autre Spectacle</button>
+  <button mat-menu-item>Cirque / Art de la Rue</button>
+  <button mat-menu-item>Danse</button>
+  <button mat-menu-item>Humour</button>
+  <button mat-menu-item>Jeune public</button>
+  <button mat-menu-item>Opéra / Musical</button>
+  <button mat-menu-item>Projection</button>
+  <button mat-menu-item>Théâtre</button>
+</mat-menu>
+</div>

@@ -12,6 +12,8 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import {MatSidenavModule} from '@angular/material/sidenav';
 import { ArticlesComponent } from './routes/articles/articles.component';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
 
@@ -32,7 +34,9 @@ import { NavigationBarComponent } from './navigation-bar/navigation-bar.componen
     MatToolbarModule,
     MatInputModule,
     MatIconModule,
-    MatMenuModule
+    MatMenuModule,
+    FlexLayoutModule,
+    MatSidenavModule
   ],
   providers: [],
   bootstrap: [AppComponent]
