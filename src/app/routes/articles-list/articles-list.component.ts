@@ -4,7 +4,7 @@ import {DetailsArticleService} from "../../services/details-article.service";
 import {Router} from "@angular/router";
 import Fields, {Record} from "../../models/queFaire.interfaces";
 import {HttpErrorResponse} from "@angular/common/http";
-import {faCircleNotch, fas, faSpinner, faSignOutAlt, faExclamationTriangle} from "@fortawesome/free-solid-svg-icons";
+import {faCircleNotch, faExclamationTriangle} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-articles-list',

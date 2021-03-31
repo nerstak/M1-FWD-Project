@@ -51,6 +51,11 @@ fa-icon {
   flex-grow: 1;
 }
 
+.article-summary a{
+  color: black;
+  font-size: 16px;
+}
+
 .article-cover{
   display: flex;
   justify-content: center;

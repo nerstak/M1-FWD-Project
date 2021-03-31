@@ -16,7 +16,7 @@ export interface QueFaire$Response {
  * Record corresponds to one and every event
  */
 export interface Record {
-  recordId: string,
+  recordid: string,
   fields: Fields,
   geometry: {
     coordinates: [
