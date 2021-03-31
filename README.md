@@ -1,27 +1,59 @@
-# Project
+# M1-FWD-Project
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.4.
+## Table of contents
 
-## Development server
+- [Informations](#Informations)
+
+- [Features](#Features)
+
+- [Installation](#Installation)
+
+## Informations
+
+### Description
+
+Website that provides the list of available activities in Paris and its close suburbs.
+
+### Technologies used
+
+Build with:
+
+- HTML / CSS
+
+- Typescript
+
+Framework:
+
+- Angular CLI 11.2.4
+
+API
+
+- [Que Faire à Paris API (V1)](https://opendata.paris.fr/explore/dataset/que-faire-a-paris-/information)
+
+## Features
+
+With this project, users are able to: 
+
+- see the most recently updated activities (with an infinite loading)
+
+- view activities by categories and subcategories
+
+- search for activities using divers criterias (date, category, accessibility, etc.)
+
+- view the details of an activity
+
+## Installation
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
+The project does **not** requires any API key.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Endpoints
 
-## Build
+- Homepage (list recent articles): `http://localhost:4200/`
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+- Category (list recent articles in this category/subcategory): `http://localhost:4200/category/:category`
 
-## Running unit tests
+- Article (see informations of an activity): `http://localhost:4200/article/:id`
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+TODO: COMPLETE ENDPOINTS, FEATURES, AND POSSIBLY ADD IMAGES
