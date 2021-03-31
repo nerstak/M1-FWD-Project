@@ -1,9 +1,9 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {QueFaireService} from "../../services/que-faire.service";
 import Fields, {Record} from "../../models/queFaire.interfaces";
 import {HttpErrorResponse} from "@angular/common/http";
 import {DetailsArticleService} from "../../services/details-article.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {sameDay} from "../../utils/Date";
 
 @Component({
@@ -12,47 +12,26 @@ import {sameDay} from "../../utils/Date";
   styleUrls: ['./homepage.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class HomepageComponent {
-  articles: Record[] | null = null;
+export class HomepageComponent implements OnInit{
+  // Title is displayed on page
+  title = "Homepage"
+  // Category is given to articles list
+  category = "";
 
-  constructor(private queFaireService: QueFaireService, private articleService : DetailsArticleService, private router : Router) {
-    // We don't need to deal with the promise return, so we make the warning disappear 😈
-    this.loadArticles();
+  constructor(private route: ActivatedRoute) {}
 
-    this.perf_testing().then();
-  }
+  ngOnInit(): void {
+    const cat = this.route.snapshot.paramMap.get("category");
 
+    if(cat) {
+      this.title = cat;
 
-  /**
-   * Load articles
-   */
-  loadArticles() {
-    try {
-      this.queFaireService.getRecentArticles(11).then(articles => this.articles = articles);
-    } catch (err) {
-      if (err instanceof HttpErrorResponse) {
-        this.articles = null;
+      // Parsing category
+      if(cat[cat.length - 1] === " ") {
+        this.category = cat.slice(0, -1) + '+';
       } else {
-        throw err;
+        this.category = cat;
       }
     }
-  }
-
-  /**
-   * OnClickCardEvent
-   * */
-  onClickCard(field : Fields){
-    this.articleService.setDetailedArticle(field);
-    this.router.navigateByUrl('/article')
-  }
-
-  // TODO Remove all of that once search is implemented
-  /**
-   * Testing performances for parsing dates for at most 1200 elements
-   */
-  async perf_testing() {
-    let p = {q: "", tags: ['Ados','Bibliothèques'], category: "Expositions "};
-    let res = await this.queFaireService.getSearchArticles(p);
-    console.log(res);
   }
 }

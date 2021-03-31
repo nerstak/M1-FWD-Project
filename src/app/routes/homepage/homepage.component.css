@@ -1,7 +1,28 @@
+html {
+  background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)) no-repeat fixed;
+}
+
+.title {
+  padding: 3em 2em 1em 2em;
+}
+
+.loading {
+  margin: 0 auto;
+  width: 50%;
+  text-align: center;
+  font-size: large;
+}
+
+.loading>* {
+  margin: 1em 4em 1em 4em;
+}
+
+fa-icon {
+  font-size: xx-large;
+}
+
 .articles-container {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2));
-  background-repeat: no-repeat;
-  padding: 3em 2em 2em 2em;
+  padding: 1em 2em 2em 2em;
 }
 
 .articles-smaller {

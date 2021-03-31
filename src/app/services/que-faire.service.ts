@@ -35,7 +35,7 @@ export class QueFaireService {
     if(p.address_city) params = params.append('refine.address_city',p.address_city);
     if(p.address_zipcode) params = params.append('refine.address_zipcode',p.address_zipcode);
 
-    for(let t of p.tags) params = params.append('refine.tags', t);
+    if(p.tags) for(let t of p.tags) params = params.append('refine.tags', t);
 
     return params;
   }
@@ -57,8 +57,7 @@ export class QueFaireService {
     let params = new HttpParams();
     params = params.append('refine.recordid',`${idArticle}`);
 
-    return this.httpClient.get(this.url, {params: params})
-      .toPromise() as any as QueFaire$Response;
+    return this.httpClient.get<QueFaire$Response>(this.url, {params: params}).toPromise();
   }
 
   /**
@@ -68,7 +67,7 @@ export class QueFaireService {
    * @param category Category (optional)
    */
   async getRecentArticles(n: number, i = 0, category = "") {
-    let res = await this.requestRecentArticles(n, i, category);
+    const res = await this.requestRecentArticles(n, i, category);
     return res.records;
   }
 
@@ -83,10 +82,9 @@ export class QueFaireService {
     params = params.append('rows',`${n}`);
     params = params.append('sort', 'updated_at');
     params = params.append('start', `${i}`);
-    if(category.length > 0) params = params.append('category', category)
+    if(category.length > 0) params = params.append('refine.category', category)
 
-    return this.httpClient.get(this.url, { params: params })
-      .toPromise() as any as QueFaire$Response;
+    return this.httpClient.get<QueFaire$Response>(this.url, {params: params}).toPromise();
   }
 
   /**
@@ -94,9 +92,9 @@ export class QueFaireService {
    * @param p Parameters
    */
   async getSearchArticles(p: QueFaire$Request) {
-    let records = [];
-    let res = await this.requestSearchArticles(p);
-    let firstRecords = res.records;
+    const records = [];
+    const res = await this.requestSearchArticles(p);
+    const firstRecords = res.records;
 
     // Searching with date
     if(p.date) {
@@ -105,8 +103,12 @@ export class QueFaireService {
 
           let dates = r.fields.occurrences.split(";");
           for (let d of dates) {
-            let values = d.split("_");
-            let dt = {start: new Date(values[0]), end: new Date(values[1])};
+            // Splitting date
+            const values = d.split("_");
+            // Getting both dates
+            const dt = {start: new Date(values[0]), end: new Date(values[1])};
+
+            // Checking if same day as event
             if (sameDay(p.date, dt.start)) {
               records.push(r);
             }
@@ -126,7 +128,6 @@ export class QueFaireService {
    */
   private requestSearchArticles(p: QueFaire$Request) {
     const params = QueFaireService.buildParamsSearch(p);
-    return this.httpClient.get(this.url, {params : params})
-      .toPromise() as any as QueFaire$Response;
+    return this.httpClient.get<QueFaire$Response>(this.url, {params: params}).toPromise();
   }
 }

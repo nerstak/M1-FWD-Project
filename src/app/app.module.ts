@@ -16,13 +16,16 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { ArticlesComponent } from './routes/articles/articles.component';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
+import { ArticlesListComponent } from './routes/articles-list/articles-list.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomepageComponent,
     ArticlesComponent,
-    NavigationBarComponent
+    NavigationBarComponent,
+    ArticlesListComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +39,8 @@ import { NavigationBarComponent } from './navigation-bar/navigation-bar.componen
     MatIconModule,
     MatMenuModule,
     FlexLayoutModule,
-    MatSidenavModule
+    MatSidenavModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
