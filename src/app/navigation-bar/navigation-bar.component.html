@@ -51,11 +51,11 @@
 </mat-menu>
 
 <mat-menu #categoriesMenu="matMenu" yPosition="below">
-  <button mat-menu-item>Animations</button>
-  <button mat-menu-item>Concerts</button>
-  <button mat-menu-item>Evénements</button>
-  <button mat-menu-item>Expositions</button>
-  <button mat-menu-item>Spectacles</button>
+  <button mat-menu-item (click)="clickCat('Animations')">Animations</button>
+  <button mat-menu-item (click)="clickCat('Concerts')">Concerts</button>
+  <button mat-menu-item (click)="clickCat('Evénements')">Evénements</button>
+  <button mat-menu-item (click)="clickCat('Expositions')">Expositions</button>
+  <button mat-menu-item (click)="clickCat('Spectacles')">Spectacles</button>
 </mat-menu>
 
 <mat-menu #AnimationsMenu="matMenu" yPosition="below">

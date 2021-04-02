@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, OnChanges} from '@angular/core';
 import {QueFaireService} from "../../services/que-faire.service";
 import {DetailsArticleService} from "../../services/details-article.service";
 import {Router} from "@angular/router";
@@ -11,7 +11,7 @@ import {faCircleNotch, faExclamationTriangle} from "@fortawesome/free-solid-svg-
   templateUrl: './articles-list.component.html',
   styleUrls: ['./articles-list.component.css']
 })
-export class ArticlesListComponent implements OnInit {
+export class ArticlesListComponent implements OnInit, OnChanges {
   articles: Record[] | null = null;
   error = false;
 
@@ -29,6 +29,14 @@ export class ArticlesListComponent implements OnInit {
     this.loadArticles();
     setTimeout(this.errorMessage(), 10000);
   }
+
+  //If we go from one category to another, clear articles reset error timer and load new articles.
+  ngOnChanges() {
+    this.articles= null;
+    this.error = false;
+    this.loadArticles();
+    setTimeout(this.errorMessage(), 10000);
+  } 
 
   /**
    * Load articles at startup and for infinite loading
