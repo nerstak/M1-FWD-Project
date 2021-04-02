@@ -1,7 +1,7 @@
 <div class="c-article-details" *ngIf="detailedArticleToDisplay">
   <div class="c-article-details__wrapper-general">
     <mat-card class="article-details__event">
-      <img src="../../../assets/images/tour_eiffel.jpg">
+      <img src="{{detailedArticleToDisplay.cover_url}}" alt="{{detailedArticleToDisplay.cover_alt}}"/>
       <div class="article-details__event-description">
         <h1>{{detailedArticleToDisplay.title}}</h1>
         <p>{{detailedArticleToDisplay.lead_text}}</p>
