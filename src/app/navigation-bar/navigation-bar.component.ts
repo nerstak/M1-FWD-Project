@@ -14,12 +14,7 @@ export class NavigationBarComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  clickCat(menuItem : String){
-    this.router.navigateByUrl('/category/' + this.parseUrl(menuItem))
-  }
-
-  parseUrl(inUrl : String): String {
-    inUrl = inUrl.split(' ').join('%20');
-    return inUrl.split('/').join('_');
+  clickCat(menuItem : string){
+    this.router.navigateByUrl('/category/' +encodeURIComponent(menuItem))
   }
 }

@@ -24,15 +24,8 @@ export class HomepageComponent {
       const cat = this.route.snapshot.paramMap.get("category");
 
       if(cat) {
-        this.title = cat.split('_').join('/');
+        this.title = cat;
         this.category = cat;
-  
-        // Parsing category
-        if(cat[cat.length - 1] === " ") {
-          this.category = cat.slice(0, -1) + '+';
-        } else {
-          this.category = cat;
-        }
       }
     });
   }
