@@ -1,10 +1,10 @@
 <div class="c-article-details" *ngIf="detailedArticleToDisplay">
   <div class="c-article-details__wrapper-general">
     <mat-card class="article-details__event">
-      <img src="../../../assets/images/tour_eiffel.jpg">
+      <img src="{{detailedArticleToDisplay.cover_url}}" alt="{{detailedArticleToDisplay.cover_alt}}"/>
       <div class="article-details__event-description">
         <h1>{{detailedArticleToDisplay.title}}</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent a metus sapien. Etiam vel velit ut turpis feugiat semper. Maecenas euismod iaculis dui, sit amet finibus est suscipit non. Quisque in tellus orci. Quisque aliquam mi efficitur erat rutrum, vitae congue risus fermentum. Morbi pretium urna non semper consequat</p>
+        <p>{{detailedArticleToDisplay.lead_text}}</p>
       </div>
     </mat-card>
 
@@ -12,8 +12,7 @@
       <h1>Info</h1>
       <p>{{detailedArticleToDisplay.address_street}}</p>
       <p>{{detailedArticleToDisplay.address_city}}</p>
-<!--      todo change with date begin-->
-      <p>{{detailedArticleToDisplay.date_end}}</p>
+      <p>{{detailedArticleToDisplay.date_start}}</p>
       <p>{{detailedArticleToDisplay.date_end}}</p>
     </mat-card>
   </div>
@@ -25,15 +24,16 @@
 
   <mat-card class="c-article-details__more">
     <div>
-      <h1>How to go ?</h1>
-      <p>fdsflkj</p>
-      <p>fdsflkj</p>
-      <p>fdsflkj</p>
+      <h1>Plus d'information</h1>
+      <p *ngIf="detailedArticleToDisplay.contact_phone">Tel : {{detailedArticleToDisplay.contact_phone}}</p>
+      <p *ngIf="detailedArticleToDisplay.contact_mail">Mail :  {{detailedArticleToDisplay.contact_mail}}</p>
+      <p *ngIf="detailedArticleToDisplay.contact_url">Web :  {{detailedArticleToDisplay.contact_url}}</p>
+      <p *ngIf="detailedArticleToDisplay.contact_facebook">Facebook :  {{detailedArticleToDisplay.contact_facebook}}</p>
+      <p *ngIf="detailedArticleToDisplay.contact_twitter">Twitter :  {{detailedArticleToDisplay.contact_twitter}}</p>
     </div>
     <div>
-      <h1>More info</h1>
-      <p>06 12 34 56 78</p>
-      <p>mail@mail.fr</p>
+      <h1>Comment y aller ?</h1>
+      <p>{{detailedArticleToDisplay.transport}}</p>
     </div>
   </mat-card>
 </div>
