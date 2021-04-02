@@ -48,7 +48,14 @@ export default interface Fields {
   address_city: string,
   date_description: string,
   address_zipcode: string,
-  price_type: string
+  price_type: string,
+  transport: string,
+  contact_mail: string,
+  contact_phone: string,
+  contact_facebook: string,
+  contact_url: string
+  contact_twitter: string,
+  lead_text: string
 }
 
 export interface QueFaire$Request {

@@ -16,7 +16,7 @@ export class ArticlesComponent implements OnInit {
   constructor(private detailArticleService : DetailsArticleService, private route : ActivatedRoute) { }
 
   ngOnInit(): void {
-    console.log(this.route.snapshot.data.record.fields)
+    console.log(this.route.snapshot.data.record.fields);
     this.detailedArticleToDisplay = this.route.snapshot.data.record.fields;
   }
 
