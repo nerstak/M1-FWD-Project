@@ -67,6 +67,8 @@ export class QueFaireService {
    * @param category Category (optional)
    */
   async getRecentArticles(n: number, i = 0, category = "") {
+    // url uses _ but this request uses /
+    category = category.split('_').join('/')
     const res = await this.requestRecentArticles(n, i, category);
     return res.records;
   }

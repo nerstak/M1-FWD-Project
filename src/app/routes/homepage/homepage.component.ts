@@ -24,7 +24,7 @@ export class HomepageComponent {
       const cat = this.route.snapshot.paramMap.get("category");
 
       if(cat) {
-        this.title = cat;
+        this.title = cat.split('_').join('/');
         this.category = cat;
   
         // Parsing category

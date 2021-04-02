@@ -15,6 +15,11 @@ export class NavigationBarComponent implements OnInit {
   }
 
   clickCat(menuItem : String){
-    this.router.navigateByUrl('/category/' + menuItem + '%20')
+    this.router.navigateByUrl('/category/' + this.parseUrl(menuItem))
+  }
+
+  parseUrl(inUrl : String): String {
+    inUrl = inUrl.split(' ').join('%20');
+    return inUrl.split('/').join('_');
   }
 }
