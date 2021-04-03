@@ -66,8 +66,8 @@ export class QueFaireService {
    * @param i Start index (optional)
    * @param category Category (optional)
    */
-  async getRecentArticles(n: number, i = 0, category = "") {
-    const res = await this.requestRecentArticles(n, i, category);
+  async getRecentArticles(n: number, i = 0, category = "", search = "") {
+    const res = await this.requestRecentArticles(n, i, category, search);
     return res.records;
   }
 
@@ -77,12 +77,13 @@ export class QueFaireService {
    * @param i Start index
    * @param category Category of search
    */
-  private requestRecentArticles(n: number, i : number, category: string) {
+  private requestRecentArticles(n: number, i : number, category: string, search: string) {
     let params = new HttpParams();
     params = params.append('rows',`${n}`);
     params = params.append('sort', 'updated_at');
     params = params.append('start', `${i}`);
-    if(category.length > 0) params = params.append('refine.category', category)
+    if(category) params = params.append('refine.category', category)
+    if(search) params = params.append('q', search)
 
     return this.httpClient.get<QueFaire$Response>(this.url, {params: params}).toPromise();
   }

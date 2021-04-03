@@ -7,6 +7,7 @@ import {DetailsResolver} from "./resolver/details.resolver";
 const routes: Routes = [
   { path: '', component: HomepageComponent },
   { path: 'category/:category', component: HomepageComponent },
+  { path: 'search/:search', component: HomepageComponent },
   { path: 'article/:id', component: ArticlesComponent, resolve:{record : DetailsResolver} }
 ];
 

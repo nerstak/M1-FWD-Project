@@ -17,15 +17,22 @@ export class HomepageComponent {
   title = "Homepage"
   // Category is given to articles list
   category = "";
+  search = "";
+
+  output= "";
 
   constructor(private route: ActivatedRoute) {
     // Subscribbe to changes in route parameters so we dont have to init the whole page every time
     route.params.subscribe(val => {
       const cat = this.route.snapshot.paramMap.get("category");
+      const query = this.route.snapshot.paramMap.get("search");
 
       if(cat) {
         this.title = cat;
-        this.category = cat;
+        this.output = "cat:" + cat;
+      }
+      if(query) {
+        this.output = "search:" +  query;
       }
     });
   }

@@ -2,12 +2,12 @@
 <mat-toolbar color="primary" class="nav-bar">
 
   <div fxShow="true" fxHide.lt-md="true">
-    <button mat-button (click)="goHome()"><mat-icon>home</mat-icon></button>
+    <button mat-button mat-icon-button (click)="goHome()"><mat-icon>home</mat-icon></button>
 
     <mat-form-field class="research-field">
       <mat-label>search</mat-label>
-      <input matInput type="text">
-      <button mat-button matSuffix mat-icon-button aria-label="Clear">
+      <input matInput type="text" [(ngModel)]="searchVal" (keyup.enter)="search()">
+      <button mat-button *ngIf="searchVal" matSuffix mat-icon-button aria-label="Clear" (click)="searchVal=''">
         <mat-icon>close</mat-icon>
       </button>
     </mat-form-field>

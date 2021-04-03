@@ -8,10 +8,13 @@ import {Router} from "@angular/router";
 })
 export class NavigationBarComponent implements OnInit {
 
+  searchVal : string;
   constructor(private router : Router) {
+    this.searchVal = '';
    }
 
   ngOnInit(): void {
+
   }
 
   clickCat(menuItem : string) {
@@ -20,5 +23,9 @@ export class NavigationBarComponent implements OnInit {
 
   goHome() {
     this.router.navigateByUrl("");
+  }
+
+  search() {
+    this.router.navigateByUrl('/search/' +encodeURIComponent(this.searchVal))
   }
 }
