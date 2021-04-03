@@ -18,6 +18,7 @@ import { ArticlesComponent } from './routes/articles/articles.component';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
 import { ArticlesListComponent } from './routes/articles-list/articles-list.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     MatMenuModule,
     FlexLayoutModule,
     MatSidenavModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
