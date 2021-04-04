@@ -1,6 +1,6 @@
 import {Component, ViewEncapsulation} from '@angular/core';
 import {QueFaireService} from "../../services/que-faire.service";
-import Fields, {Record} from "../../models/queFaire.interfaces";
+import Fields, {Record, QueFaire$Request} from "../../models/queFaire.interfaces";
 import {HttpErrorResponse} from "@angular/common/http";
 import {DetailsArticleService} from "../../services/details-article.service";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -19,9 +19,11 @@ export class HomepageComponent {
   category = "";
   search = "";
 
-  output= "";
+  output: QueFaire$Request;
 
   constructor(private route: ActivatedRoute) {
+    this.output= {};
+
     // Subscribbe to changes in route parameters so we dont have to init the whole page every time
     route.params.subscribe(val => {
       const cat = this.route.snapshot.paramMap.get("category");
@@ -29,10 +31,14 @@ export class HomepageComponent {
 
       if(cat) {
         this.title = cat;
-        this.output = "cat:" + cat;
+        this.output= {
+          category : cat
+        };
       }
       if(query) {
-        this.output = "search:" +  query;
+        this.output = {
+          q : query
+        };
       }
     });
   }

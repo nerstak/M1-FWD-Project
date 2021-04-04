@@ -2,7 +2,7 @@ import {Component, Input, OnInit, OnChanges} from '@angular/core';
 import {QueFaireService} from "../../services/que-faire.service";
 import {DetailsArticleService} from "../../services/details-article.service";
 import {Router} from "@angular/router";
-import Fields, {Record} from "../../models/queFaire.interfaces";
+import Fields, {Record, QueFaire$Request} from "../../models/queFaire.interfaces";
 import {HttpErrorResponse} from "@angular/common/http";
 import {faCircleNotch, faExclamationTriangle} from "@fortawesome/free-solid-svg-icons";
 
@@ -16,26 +16,25 @@ export class ArticlesListComponent implements OnInit, OnChanges {
   error = false;
 
   @Input()
-  input = "";
+  input : QueFaire$Request;
 
-  category="";
-  search="";
+  curr = {};
 
   faCircleNotch = faCircleNotch
   faWarning = faExclamationTriangle
 
   constructor(private queFaireService: QueFaireService, private articleService : DetailsArticleService, private router : Router) {
+    this.input = {};
   }
 
   ngOnInit(): void {
-    this.getInput();
     this.loadArticles();
     setTimeout(this.errorMessage(), 10000);
   }
 
   //If we go from one category to another, clear articles reset error timer and load new articles.
   ngOnChanges() {
-    this.getInput();
+    console.log(this.input);
     this.articles= null;
     this.error = false;
     this.loadArticles();
@@ -51,7 +50,8 @@ export class ArticlesListComponent implements OnInit, OnChanges {
       const startingRow = this.articles ? this.articles.length : 0;
       // We only want an odd number of articles in the page
       const additional = startingRow != 0 && startingRow % 2 == 1 ? 1 : 0;
-      this.queFaireService.getRecentArticles(11 + additional, startingRow, this.category, this.search).then(articles => {
+      this.input.category;
+      this.queFaireService.getRecentArticles(11 + additional, startingRow, this.input).then(articles => {
           if (!this.articles) {
             this.articles = articles;
           } else {
@@ -79,17 +79,6 @@ export class ArticlesListComponent implements OnInit, OnChanges {
   errorMessage() {
     return () => {
       if(this.articles == null || this.articles.length == 0) this.error = true;
-    }
-  }
-
-  getInput() {
-    if(this.input){
-      var splitInput = this.input.split(':');
-      if(splitInput[0] == "cat") {
-        this.category = splitInput[1];
-      } else if (splitInput[0] == "search") {
-        this.search = splitInput[1];
-      }
     }
   }
 }
