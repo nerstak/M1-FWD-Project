@@ -31,9 +31,9 @@ export interface Record {
  * Fields of a record
  */
 export default interface Fields {
-  blind: boolean,
-  pmr: boolean,
-  deaf: boolean,
+  blind: number,
+  pmr: number,
+  deaf: number,
   date_end: Date,
   date_start: Date,
   access_type: string,

@@ -31,9 +31,18 @@
       <p *ngIf="detailedArticleToDisplay.contact_facebook">Facebook :  {{detailedArticleToDisplay.contact_facebook}}</p>
       <p *ngIf="detailedArticleToDisplay.contact_twitter">Twitter :  {{detailedArticleToDisplay.contact_twitter}}</p>
     </div>
-    <div>
+    <div *ngIf="detailedArticleToDisplay.transport">
       <h1>Comment y aller ?</h1>
       <p>{{detailedArticleToDisplay.transport}}</p>
     </div>
+    <div *ngIf="accessibility" class="c-article-details__more-accessibility">
+      <h1>Accessibilité</h1>
+        <img src="assets/svg/deaf.svg" alt="deaf icon" *ngIf="detailedArticleToDisplay.deaf"/>
+        <img src="assets/svg/blind.svg" alt="blind icon" *ngIf="detailedArticleToDisplay.blind"/>
+        <img src="assets/svg/pmr.svg" alt="pmr icon" *ngIf="detailedArticleToDisplay.pmr"/>
+    </div>
   </mat-card>
+</div>
+<div class="c-article-details" *ngIf="!detailedArticleToDisplay">
+  <h1>Article non trouvé ! Retournez à <a routerLink="/">l'accueil</a></h1>
 </div>
