@@ -49,9 +49,14 @@
 
 .c-article-details__more div{
   flex-basis: 45%;
+  margin: 0 16px;
 }
 
-@media (max-width: 600px) {
+.c-article-details__more-accessibility{
+  margin-right: 8px;
+}
+
+@media (max-width: 800px) {
   .c-article-details__more {
     display: block;
   }
