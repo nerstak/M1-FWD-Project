@@ -12,13 +12,17 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatSelectModule} from '@angular/material/select';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { ArticlesComponent } from './routes/articles/articles.component';
 import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
 import { ArticlesListComponent } from './routes/articles-list/articles-list.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 @NgModule({
   declarations: [
@@ -39,10 +43,15 @@ import { FormsModule } from '@angular/forms';
     MatInputModule,
     MatIconModule,
     MatMenuModule,
+    MatExpansionModule,
+    MatCheckboxModule,
+    MatSelectModule,
     FlexLayoutModule,
     MatSidenavModule,
     FontAwesomeModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    MatDatepickerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

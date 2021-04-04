@@ -1,4 +1,10 @@
 .nav-bar{
-  height: 88px;
   overflow: hidden;
+}
+
+.advanced-items {
+  display:flex;
+  flex-wrap: wrap;
+  align-items:center;
+  justify-content:center
 }
