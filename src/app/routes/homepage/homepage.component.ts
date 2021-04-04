@@ -28,14 +28,16 @@ export class HomepageComponent {
     route.params.subscribe(val => {
       const cat = this.route.snapshot.paramMap.get("category");
       const query = this.route.snapshot.paramMap.get("search");
+      const params = this.route.snapshot.data.request;
 
-      if(cat) {
+      if(params) {
+        this.output = params;
+      } else if(cat) {
         this.title = cat;
         this.output= {
           category : cat
         };
-      }
-      if(query) {
+      } else if(query) {
         this.output = {
           q : query
         };

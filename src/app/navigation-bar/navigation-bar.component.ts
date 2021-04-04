@@ -21,6 +21,10 @@ export class NavigationBarComponent implements OnInit {
     this.router.navigateByUrl('/category/' +encodeURIComponent(menuItem))
   }
 
+  testAdv() {
+    this.router.navigateByUrl('/adv-search/' +encodeURIComponent('{"category":"Animations -> Atelier / Cours", "q":"Manga"}'))
+  }
+
   goHome() {
     this.router.navigateByUrl("");
   }
