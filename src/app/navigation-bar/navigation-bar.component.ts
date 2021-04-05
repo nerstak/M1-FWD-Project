@@ -11,6 +11,7 @@ import {QueFaire$Request} from "../models/queFaire.interfaces";
 export class NavigationBarComponent implements OnInit {
   advanced = false;
 
+  //Search variables
   searchVal : string = '';
   catTitle = 'Catégories';
   accessibility : string[] = [];
@@ -35,20 +36,32 @@ export class NavigationBarComponent implements OnInit {
                   ,"Noël","Nuit Blanche","Plein air","Queer Lgbt","Solidaire","Sport","Urbain","Végétalisons Paris"];
   }
 
+  /**
+   * Refines search by clicked category
+   * @param menuItem Chosen category
+   */
   clickCat(menuItem : string) {
     if(this.advanced)
     {
+      //Simply save category for now
       this.catTitle = menuItem;
     } else {
+      //Direct to search
       this.router.navigateByUrl('/category/' +encodeURIComponent(menuItem));
     }
   }
 
+  /**
+   * Toggles between advanced and basic search
+   */
   toggleAdvanced() {
     this.advanced = !this.advanced;
     this.catTitle = "Catégories"
   }
 
+  /**
+   * Starts an advanced search by constructing a Request with the params chosen
+   */
   advSearch() {
     var params : QueFaire$Request = {};
     if(this.searchVal) params.q = this.searchVal;
@@ -65,13 +78,20 @@ export class NavigationBarComponent implements OnInit {
       params.date.setHours(14);
     }
 
+    //Turns the JSON object into a string and send it in the url
     this.router.navigateByUrl('/adv-search/' +encodeURIComponent(JSON.stringify(params)))
   }
 
+  /**
+   * Direct to main homepage on button click
+   */
   goHome() {
     this.router.navigateByUrl("");
   }
 
+  /**
+   * Search usingg simply the entered term
+   */
   search() {
     this.router.navigateByUrl('/search/' +encodeURIComponent(this.searchVal))
   }

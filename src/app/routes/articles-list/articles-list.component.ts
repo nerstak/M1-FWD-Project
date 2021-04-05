@@ -18,8 +18,6 @@ export class ArticlesListComponent implements  OnChanges {
   @Input()
   input : QueFaire$Request;
 
-  curr = {};
-
   faCircleNotch = faCircleNotch
   faWarning = faExclamationTriangle
 
@@ -45,6 +43,7 @@ export class ArticlesListComponent implements  OnChanges {
       // We only want an odd number of articles in the page
       const additional = startingRow != 0 && startingRow % 2 == 1 ? 1 : 0;
       this.input.category;
+      //If we are searching by date, we need to load all results before filtering them by date.
       if (this.input.date) {
         this.queFaireService.getSearchArticles(this.input).then(articles => {
             if (!this.articles) {
@@ -55,6 +54,7 @@ export class ArticlesListComponent implements  OnChanges {
           }
         );
       } else {
+        //If we aren't searching by date, we can simply request n articles sorted by most recently updated
         this.queFaireService.getRecentArticles(11 + additional, startingRow, this.input).then(articles => {
             if (!this.articles) {
               this.articles = articles;

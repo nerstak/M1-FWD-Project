@@ -19,25 +19,31 @@ export class HomepageComponent {
   category = "";
   search = "";
 
+  //output is sent to app-articles-list
   output: QueFaire$Request;
 
   constructor(private route: ActivatedRoute) {
     this.output= {};
 
-    // Subscribbe to changes in route parameters so we dont have to init the whole page every time
+    // Subscribe to changes in route parameters so we dont have to init the whole page every time
     route.params.subscribe(val => {
+      // Value of category if we are refining by category
       const cat = this.route.snapshot.paramMap.get("category");
+      // Search term if we are searching with a query
       const query = this.route.snapshot.paramMap.get("search");
+      // All search terms if we are doing an advanced search
       const params = this.route.snapshot.data.request;
 
       if(params) {
         this.output = params;
+        this.title = "Advanced search results:";
       } else if(cat) {
         this.title = cat;
         this.output= {
           category : cat
         };
       } else if(query) {
+        this.title = 'Results matching "' + query + '":';
         this.output = {
           q : query
         };
