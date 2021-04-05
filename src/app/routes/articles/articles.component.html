@@ -12,8 +12,8 @@
       <h1>Info</h1>
       <p>{{detailedArticleToDisplay.address_street}}</p>
       <p>{{detailedArticleToDisplay.address_city}}</p>
-      <p>{{detailedArticleToDisplay.date_start}}</p>
-      <p>{{detailedArticleToDisplay.date_end}}</p>
+      <p *ngIf="dateStart">Du: {{dateStart}}</p>
+      <p *ngIf="dateEnd">Au: {{dateEnd}}</p>
     </mat-card>
   </div>
 
@@ -25,11 +25,11 @@
   <mat-card class="c-article-details__more">
     <div>
       <h1>Plus d'information</h1>
-      <p *ngIf="detailedArticleToDisplay.contact_phone">Tel : {{detailedArticleToDisplay.contact_phone}}</p>
-      <p *ngIf="detailedArticleToDisplay.contact_mail">Mail :  {{detailedArticleToDisplay.contact_mail}}</p>
-      <p *ngIf="detailedArticleToDisplay.contact_url">Web :  {{detailedArticleToDisplay.contact_url}}</p>
-      <p *ngIf="detailedArticleToDisplay.contact_facebook">Facebook :  {{detailedArticleToDisplay.contact_facebook}}</p>
-      <p *ngIf="detailedArticleToDisplay.contact_twitter">Twitter :  {{detailedArticleToDisplay.contact_twitter}}</p>
+      <p *ngIf="detailedArticleToDisplay.contact_phone">Tel : <a href="tel:{{detailedArticleToDisplay.contact_phone}}">{{detailedArticleToDisplay.contact_phone}}</a></p>
+      <p *ngIf="detailedArticleToDisplay.contact_mail">Mail :  <a href="mailto:{{detailedArticleToDisplay.contact_mail}}">{{detailedArticleToDisplay.contact_mail}}</a></p>
+      <p *ngIf="detailedArticleToDisplay.contact_url">Web :  <a href="{{detailedArticleToDisplay.contact_url}}">{{detailedArticleToDisplay.contact_url}}</a></p>
+      <p *ngIf="detailedArticleToDisplay.contact_facebook">Facebook :  <a href="{{detailedArticleToDisplay.contact_facebook}}">{{detailedArticleToDisplay.contact_facebook}}</a></p>
+      <p *ngIf="detailedArticleToDisplay.contact_twitter">Twitter :  <a href="{{detailedArticleToDisplay.contact_twitter}}">{{detailedArticleToDisplay.contact_twitter}}</a></p>
     </div>
     <div *ngIf="detailedArticleToDisplay.transport">
       <h1>Comment y aller ?</h1>
