@@ -1,7 +1,7 @@
 <div>
-<mat-toolbar color="primary" class="nav-bar" [style.height]="advanced ? '190px' : '88px'">
+<mat-toolbar color="primary" class="nav-bar" [style.height]="advanced ? '190px' : '88px'" fxShow="true" fxHide.lt-md="true">
 
-  <div fxShow="true" fxHide.lt-md="true">
+  <div >
 
     <div *ngIf="!advanced">
       <button mat-button mat-icon-button (click)="goHome()" style="margin-right: 10px;"><mat-icon>home</mat-icon></button>
@@ -22,7 +22,7 @@
       <button mat-button mat-icon-button (click)="toggleAdvanced()" style="margin-right: 10px;"><mat-icon>arrow_back</mat-icon></button>
 
       <mat-form-field>
-        <mat-label>Termes de recherche</mat-label>
+        <mat-label>Termes</mat-label>
         <input matInput type="text" [(ngModel)]="searchVal">
         <button mat-button *ngIf="searchVal" matSuffix mat-icon-button aria-label="Clear" (click)="searchVal=''">
           <mat-icon>close</mat-icon>
@@ -91,20 +91,106 @@
     </div>
   </div>
 
-  <div fxShow="true" fxHide.gt-sm="true">
-    <button mat-icon-button class="example-icon" aria-label="icon-button" (click)="sidenav.toggle()">
-      <mat-icon>menu</mat-icon>
-    </button>
-  </div>
+
 
 </mat-toolbar>
+
+<div fxShow="true" fxHide.gt-sm="true" style="background-color: #FAFAFA ;">
+  <button mat-fab color="primary" class="example-icon" aria-label="icon-button" (click)="sidenav.toggle()" style="margin-bottom: 1em;">
+    <mat-icon>menu</mat-icon>
+  </button>
+</div>
 
 <mat-sidenav-container fxFlexFill class="example-container">
 
   <mat-sidenav #sidenav fxLayout="column">
-    <div fxLayout="column">
-      <button mat-button [matMenuTriggerFor]="categoriesMenu">catégories <mat-icon>expand_more</mat-icon> </button>
+    <div fxLayout="column" *ngIf="!advanced">
+      <button mat-button mat-icon-button (click)="goHome()" style="margin-right: 10px;"><mat-icon>home</mat-icon></button>
+      <mat-form-field class="research-field">
+        <mat-label>Recherche</mat-label>
+        <input matInput type="text" [(ngModel)]="searchVal" (keyup.enter)="search()">
+        <button mat-button *ngIf="searchVal" matSuffix mat-icon-button aria-label="Clear" (click)="searchVal=''">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <button mat-raised-button [matMenuTriggerFor]="categoriesMenu"  class = "large-button side">Catégories <mat-icon>expand_more</mat-icon> </button>
+
+      <button mat-raised-button (click)="toggleAdvanced()"  class = "large-button side">Recherche Avancée</button>
     </div>
+
+    <div fxLayout="column" *ngIf="advanced">
+      <button mat-button mat-icon-button (click)="toggleAdvanced()" style="margin-right: 10px;"><mat-icon>arrow_back</mat-icon></button>
+
+      <mat-form-field>
+        <mat-label>Termes</mat-label>
+        <input matInput type="text" [(ngModel)]="searchVal">
+        <button mat-button *ngIf="searchVal" matSuffix mat-icon-button aria-label="Clear" (click)="searchVal=''">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <button mat-raised-button [matMenuTriggerFor]="categoriesMenu" class = "large-button side">{{catTitle}} <mat-icon>expand_more</mat-icon> </button>
+      <button mat-button mat-icon-button *ngIf="catTitle != 'Catégories'" (click)="catTitle = 'Catégories'" style="align-self:flex-start; margin-top: 1.5em;">
+        <mat-icon>close</mat-icon>
+      </button>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Accessibilité</mat-label>
+        <mat-select [(ngModel)]="accessibility" multiple>
+          <mat-option [value]="'blind'"><mat-icon>visibility_off</mat-icon></mat-option>
+          <mat-option [value]="'deaf'"><mat-icon>hearing_disabled</mat-icon></mat-option>
+          <mat-option [value]="'pmr'"><mat-icon>accessible</mat-icon></mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Prix</mat-label>
+        <mat-select [(ngModel)]="prix">
+          <mat-option>---</mat-option>
+          <mat-option [value]="'gratuit'">Gratuit</mat-option>
+          <mat-option [value]="'payant'">Payant</mat-option>
+          <mat-option [value]="'conso'">Conso</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Type d’Accès</mat-label>
+        <mat-select [(ngModel)]="typeAcces">
+          <mat-option>---</mat-option>
+          <mat-option [value]="'reservation'">Reservation</mat-option>
+          <mat-option [value]="'conseillee'">Conseillée</mat-option>
+          <mat-option [value]="'libre'">Libre</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Arrondissement</mat-label>
+        <mat-select [(ngModel)]="codePostal">
+          <mat-option>---</mat-option>
+          <mat-option *ngFor="let ard of listArondissements" [value]="75000 + ard">{{ard}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Mots Clés</mat-label>
+        <mat-select [(ngModel)]="tags" multiple>
+          <mat-option *ngFor="let tag of listTags" [value]="tag">{{tag}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Choisissez une date</mat-label>
+        <input matInput [matDatepicker]="picker" (dateInput)="date =  $event.value" (dateChange)="date = $event.value">
+        <mat-datepicker-toggle matSuffix [for]="picker">
+          <mat-icon matDatepickerToggleIcon style="color: black;">event</mat-icon>
+        </mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <button mat-raised-button (click)="advSearch()" class = "large-button side">Rechercher</button>
+    </div>
+
   </mat-sidenav>
   <mat-sidenav-content>
     <router-outlet></router-outlet>
