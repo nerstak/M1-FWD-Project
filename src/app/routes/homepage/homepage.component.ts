@@ -1,6 +1,6 @@
 import {Component, ViewEncapsulation} from '@angular/core';
 import {QueFaireService} from "../../services/que-faire.service";
-import Fields, {Record} from "../../models/queFaire.interfaces";
+import Fields, {Record, QueFaire$Request} from "../../models/queFaire.interfaces";
 import {HttpErrorResponse} from "@angular/common/http";
 import {DetailsArticleService} from "../../services/details-article.service";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -19,20 +19,34 @@ export class HomepageComponent {
   category = "";
   search = "";
 
-  output= "";
+  //output is sent to app-articles-list
+  output: QueFaire$Request;
 
   constructor(private route: ActivatedRoute) {
-    // Subscribbe to changes in route parameters so we dont have to init the whole page every time
-    route.params.subscribe(val => {
-      const cat = this.route.snapshot.paramMap.get("category");
-      const query = this.route.snapshot.paramMap.get("search");
+    this.output= {};
 
-      if(cat) {
+    // Subscribe to changes in route parameters so we dont have to init the whole page every time
+    route.params.subscribe(val => {
+      // Value of category if we are refining by category
+      const cat = this.route.snapshot.paramMap.get("category");
+      // Search term if we are searching with a query
+      const query = this.route.snapshot.paramMap.get("search");
+      // All search terms if we are doing an advanced search
+      const params = this.route.snapshot.data.request;
+
+      if(params) {
+        this.output = params;
+        this.title = "Advanced search results:";
+      } else if(cat) {
         this.title = cat;
-        this.output = "cat:" + cat;
-      }
-      if(query) {
-        this.output = "search:" +  query;
+        this.output= {
+          category : cat
+        };
+      } else if(query) {
+        this.title = 'Results matching "' + query + '":';
+        this.output = {
+          q : query
+        };
       }
     });
   }

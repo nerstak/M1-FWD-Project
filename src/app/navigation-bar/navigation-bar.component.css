@@ -1,4 +1,22 @@
 .nav-bar{
-  height: 88px;
   overflow: hidden;
+}
+
+.advanced-items {
+  display:flex;
+  flex-wrap: wrap;
+  align-items:center;
+  justify-content:flex-start;
+  align-content: flex-end;
+}
+
+.large-button {
+  margin-right: 8px;
+  margin-left: 8px;
+  margin-top: 0.5em;
+  font-size: large;
+  height:3em;
+  color: white;
+  background-color: var(--color-primary);
+  align-self:flex-start;
 }

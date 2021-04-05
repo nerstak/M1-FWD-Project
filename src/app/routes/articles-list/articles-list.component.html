@@ -51,13 +51,13 @@
 </div>
 
 <div class="loading" *ngIf="articles == null || articles.length == 0">
-  <mat-card>
+  <mat-card *ngIf="!error">
     <p>Loading articles</p>
     <fa-icon [icon]="faCircleNotch" [spin]="true"></fa-icon>
   </mat-card>
   <mat-card class="error-card" *ngIf="error">
     <fa-icon [icon]="faWarning"></fa-icon>
-    <p>Maybe the category does not exists?</p>
+    <p>We cannot find results matching your query!</p>
   </mat-card>
 
 </div>
