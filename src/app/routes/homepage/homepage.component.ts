@@ -14,7 +14,7 @@ import {sameDay} from "../../utils/Date";
 })
 export class HomepageComponent {
   // Title is displayed on page
-  title = "Homepage"
+  title = "Accueil"
   // Category is given to articles list
   category = "";
   search = "";
@@ -36,14 +36,14 @@ export class HomepageComponent {
 
       if(params) {
         this.output = params;
-        this.title = "Advanced search results:";
+        this.title = "Résultats de la recherche avancée:";
       } else if(cat) {
         this.title = cat;
         this.output= {
           category : cat
         };
       } else if(query) {
-        this.title = 'Results matching "' + query + '":';
+        this.title = 'Résultat correspondant à "' + query + '":';
         this.output = {
           q : query
         };
