@@ -15,13 +15,10 @@ export class ArticlesComponent implements OnInit {
   constructor(private detailArticleService : DetailsArticleService, private route : ActivatedRoute) { }
 
   ngOnInit(): void {
-    console.log(this.route.snapshot.data.record.fields);
+    //Get the detailed article
     this.detailedArticleToDisplay = this.route.snapshot.data.record.fields;
+    //The accessibility icons will be displayed if at least one of them is present
     this.accessibility = (this.detailedArticleToDisplay?.deaf === 1) || (this.detailedArticleToDisplay?.pmr === 1) || (this.detailedArticleToDisplay?.blind === 1);
-    console.log((this.detailedArticleToDisplay?.deaf === 1) || (this.detailedArticleToDisplay?.pmr === 1) || (this.detailedArticleToDisplay?.blind === 1));
-    console.log(this.detailedArticleToDisplay?.deaf === 1)
-    console.log(this.detailedArticleToDisplay?.blind === 1)
-    console.log(this.detailedArticleToDisplay?.pmr === 1)
   }
 
 }

@@ -15,8 +15,9 @@ export class DetailsResolver implements Resolve<Record> {
   }
 
   resolve(route: ActivatedRouteSnapshot): Observable<Record> {
+    //Get the id in the url parameter
     const userId = <string>route.paramMap.get('id');
-    console.log("id" + userId);
+    //Get the article from the API
     return this.articleService.getArticle(userId) as any;
   }
 }
