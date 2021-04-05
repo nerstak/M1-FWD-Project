@@ -9,11 +9,10 @@
     </mat-card>
 
     <mat-card class="article-details__info">
-      <h1>Info</h1>
+      <h1>Informations</h1>
       <p>{{detailedArticleToDisplay.address_street}}</p>
       <p>{{detailedArticleToDisplay.address_city}}</p>
-      <p *ngIf="dateStart">Du: {{dateStart}}</p>
-      <p *ngIf="dateEnd">Au: {{dateEnd}}</p>
+      <p [innerHTML]="detailedArticleToDisplay.date_description"></p>
     </mat-card>
   </div>
 
@@ -24,7 +23,7 @@
 
   <mat-card class="c-article-details__more">
     <div>
-      <h1>Plus d'information</h1>
+      <h1>Plus d'informations</h1>
       <p *ngIf="detailedArticleToDisplay.contact_phone">Tel : <a href="tel:{{detailedArticleToDisplay.contact_phone}}">{{detailedArticleToDisplay.contact_phone}}</a></p>
       <p *ngIf="detailedArticleToDisplay.contact_mail">Mail :  <a href="mailto:{{detailedArticleToDisplay.contact_mail}}">{{detailedArticleToDisplay.contact_mail}}</a></p>
       <p *ngIf="detailedArticleToDisplay.contact_url">Web :  <a href="{{detailedArticleToDisplay.contact_url}}">{{detailedArticleToDisplay.contact_url}}</a></p>
