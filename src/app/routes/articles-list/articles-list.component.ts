@@ -45,14 +45,25 @@ export class ArticlesListComponent implements  OnChanges {
       // We only want an odd number of articles in the page
       const additional = startingRow != 0 && startingRow % 2 == 1 ? 1 : 0;
       this.input.category;
-      this.queFaireService.getRecentArticles(11 + additional, startingRow, this.input).then(articles => {
-          if (!this.articles) {
-            this.articles = articles;
-          } else {
-            this.articles.push.apply(this.articles, articles);
+      if (this.input.date) {
+        this.queFaireService.getSearchArticles(this.input).then(articles => {
+            if (!this.articles) {
+              this.articles = articles;
+            } else {
+              this.articles.push.apply(this.articles, articles);
+            }
           }
-        }
-      );
+        );
+      } else {
+        this.queFaireService.getRecentArticles(11 + additional, startingRow, this.input).then(articles => {
+            if (!this.articles) {
+              this.articles = articles;
+            } else {
+              this.articles.push.apply(this.articles, articles);
+            }
+          }
+        );
+      }
     } catch (err) {
       if (err instanceof HttpErrorResponse) {
         this.articles = null;

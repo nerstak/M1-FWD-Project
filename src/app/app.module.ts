@@ -23,6 +23,7 @@ import { ArticlesListComponent } from './routes/articles-list/articles-list.comp
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule,  MAT_DATE_LOCALE} from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -51,9 +52,12 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     FontAwesomeModule,
     FormsModule,
     ReactiveFormsModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
-  providers: [],
+  providers: [
+    {provide: MAT_DATE_LOCALE, useValue: 'fr'},
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

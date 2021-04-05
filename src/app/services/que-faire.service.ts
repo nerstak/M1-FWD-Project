@@ -98,6 +98,7 @@ export class QueFaireService {
     // Searching with date
     if(p.date) {
       for (let r of firstRecords) {
+        p.date = new Date(p.date);
         if (p.date > new Date(r.fields.date_start) && p.date <= new Date(r.fields.date_end)) {
 
           let dates = r.fields.occurrences.split(";");
@@ -126,7 +127,8 @@ export class QueFaireService {
    * @param p Parameters
    */
   private requestSearchArticles(p: QueFaire$Request) {
-    const params = QueFaireService.buildParamsSearch(p);
+    var params = QueFaireService.buildParamsSearch(p);
+    params = params.append('rows',`1000`);
     return this.httpClient.get<QueFaire$Response>(this.url, {params: params}).toPromise();
   }
 }

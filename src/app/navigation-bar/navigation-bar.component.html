@@ -1,5 +1,5 @@
 <div>
-<mat-toolbar color="primary" class="nav-bar" [style.height]="advanced ? '88px' : '88px'">
+<mat-toolbar color="primary" class="nav-bar" [style.height]="advanced ? '190px' : '88px'">
 
   <div fxShow="true" fxHide.lt-md="true">
 
@@ -19,6 +19,8 @@
     </div>
 
     <div *ngIf="advanced" class = "advanced-items">
+      <button mat-button (click)="toggleAdvanced()"><mat-icon>arrow_back</mat-icon></button>
+
       <mat-form-field>
         <mat-label>Search Terms</mat-label>
         <input matInput type="text" [(ngModel)]="searchVal">
@@ -28,9 +30,10 @@
       </mat-form-field>
 
       <button mat-button [matMenuTriggerFor]="categoriesMenu">{{catTitle}}</button>
+      <button mat-button mat-icon-button *ngIf="catTitle != 'Catégories'" (click)="catTitle = 'Catégories'"><mat-icon>close</mat-icon></button>
 
       <mat-form-field appearance="fill">
-        <mat-label>Accessibility</mat-label>
+        <mat-label>Accessibilité</mat-label>
         <mat-select [(ngModel)]="accessibility" multiple>
           <mat-option [value]="'blind'"><mat-icon>visibility_off</mat-icon></mat-option>
           <mat-option [value]="'deaf'"><mat-icon>hearing_disabled</mat-icon></mat-option>
@@ -58,17 +61,31 @@
         </mat-select>
       </mat-form-field>
 
-      <!--
+      <mat-form-field appearance="fill">
+        <mat-label>Arrondissement</mat-label>
+        <mat-select [(ngModel)]="codePostal">
+          <mat-option>---</mat-option>
+          <mat-option *ngFor="let ard of listArondissements" [value]="75000 + ard">{{ard}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Mot Clés</mat-label>
+        <mat-select [(ngModel)]="tags" multiple>
+          <mat-option *ngFor="let tag of listTags" [value]="tag">{{tag}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
       <mat-form-field appearance="fill">
         <mat-label>Choisissez une date</mat-label>
-        <input matInput [matDatepicker]="date">
-        <mat-datepicker-toggle matSuffix [for]="date"></mat-datepicker-toggle>
+        <input matInput [matDatepicker]="picker" (dateInput)="date =  $event.value" (dateChange)="date = $event.value">
+        <mat-datepicker-toggle matSuffix [for]="picker">
+          <mat-icon matDatepickerToggleIcon style="color: white;">event</mat-icon>
+        </mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
-    -->
 
       <button mat-button (click)="advSearch()">Rechercher</button>
-      <button mat-button (click)="toggleAdvanced()">Recherche Basique</button>
     </div>
   </div>
 
