@@ -1,6 +1,6 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, ViewEncapsulation} from '@angular/core';
 import {QueFaireService} from "../../services/que-faire.service";
-import Fields, {Record} from "../../models/queFaire.interfaces";
+import Fields, {Record, QueFaire$Request} from "../../models/queFaire.interfaces";
 import {HttpErrorResponse} from "@angular/common/http";
 import {DetailsArticleService} from "../../services/details-article.service";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -12,26 +12,42 @@ import {sameDay} from "../../utils/Date";
   styleUrls: ['./homepage.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class HomepageComponent implements OnInit{
+export class HomepageComponent {
   // Title is displayed on page
-  title = "Homepage"
+  title = "Accueil"
   // Category is given to articles list
   category = "";
+  search = "";
 
-  constructor(private route: ActivatedRoute) {}
+  //output is sent to app-articles-list
+  output: QueFaire$Request;
 
-  ngOnInit(): void {
-    const cat = this.route.snapshot.paramMap.get("category");
+  constructor(private route: ActivatedRoute) {
+    this.output= {};
 
-    if(cat) {
-      this.title = cat;
+    // Subscribe to changes in route parameters so we dont have to init the whole page every time
+    route.params.subscribe(val => {
+      // Value of category if we are refining by category
+      const cat = this.route.snapshot.paramMap.get("category");
+      // Search term if we are searching with a query
+      const query = this.route.snapshot.paramMap.get("search");
+      // All search terms if we are doing an advanced search
+      const params = this.route.snapshot.data.request;
 
-      // Parsing category
-      if(cat[cat.length - 1] === " ") {
-        this.category = cat.slice(0, -1) + '+';
-      } else {
-        this.category = cat;
+      if(params) {
+        this.output = params;
+        this.title = "Résultats de la recherche avancée:";
+      } else if(cat) {
+        this.title = cat;
+        this.output= {
+          category : cat
+        };
+      } else if(query) {
+        this.title = 'Résultat correspondant à "' + query + '":';
+        this.output = {
+          q : query
+        };
       }
-    }
+    });
   }
 }

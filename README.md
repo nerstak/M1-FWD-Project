@@ -38,7 +38,7 @@ With this project, users are able to:
 
 - view activities by categories and subcategories
 
-- search for activities using divers criterias (date, category, accessibility, etc.)
+- search for activities using divers criterias (date, category, accessibility, etc.) or only a simple string query
 
 - view the details of an activity
 
@@ -56,4 +56,6 @@ The project does **not** requires any API key.
 
 - Article (see informations of an activity): `http://localhost:4200/article/:id`
 
-TODO: COMPLETE ENDPOINTS, FEATURES, AND POSSIBLY ADD IMAGES
+- Simple search (search with a simple query): `http://localhost:4200/search/:query`
+
+- Advanced search (search with a multiple conditions): `http://localhost:4200/adv-search/:params`

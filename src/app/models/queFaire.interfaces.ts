@@ -31,11 +31,11 @@ export interface Record {
  * Fields of a record
  */
 export default interface Fields {
-  blind: boolean,
-  pmr: boolean,
-  deaf: boolean,
-  date_end: Date,
-  date_start: Date,
+  blind: number,
+  pmr: number,
+  deaf: number,
+  date_end: string,
+  date_start: string,
   access_type: string,
   occurrences: string,
   address_street: string,
@@ -48,7 +48,14 @@ export default interface Fields {
   address_city: string,
   date_description: string,
   address_zipcode: string,
-  price_type: string
+  price_type: string,
+  transport: string,
+  contact_mail: string,
+  contact_phone: string,
+  contact_facebook: string,
+  contact_url: string
+  contact_twitter: string,
+  lead_text: string
 }
 
 export interface QueFaire$Request {
